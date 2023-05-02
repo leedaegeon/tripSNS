@@ -19,7 +19,7 @@
 	</insert>
 	
 	<select id="loginMember" parameterType="map" resultMap="member">
-		select user_id, user_name, user_type
+		select user_id, user_name, user_type, user_Age
 		from user_tb
 		where user_id = #{userid} and user_pw = #{userpw}
 	</select>
@@ -33,7 +33,7 @@
 	
 	<select id="getMember" parameterType="string" resultMap="member">
 		select user_id, user_pw, user_name, user_email, user_age, user_type
-		from members
+		from user_tb
 		where user_id = #{userId}
 	</select>
 	

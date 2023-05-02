@@ -39,20 +39,21 @@ public class MemberController {
 	}
 	
 	@PostMapping("/join")
-	public int join(MemberDto memberDto, Model model) {
+	public MemberDto join(MemberDto memberDto, Model model) {
 		try {
 			memberService.joinMember(memberDto);
-			return 1;
+			
+			return memberDto;
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("msg", "회원 가입 중 문제 발생!!!");
-			return -1;
+			return null;
 		}
 	}
 	
 	
 	@PostMapping("/login")
-	public int login(@RequestParam Map<String, String> map, @RequestParam(name = "saveid", required = false) String saveid, Model model, HttpSession session, HttpServletResponse response) {
+	public MemberDto login(@RequestParam Map<String, String> map, @RequestParam(name = "saveid", required = false) String saveid, Model model, HttpSession session, HttpServletResponse response) {
 	
 		try {
 			MemberDto memberDto = memberService.loginMember(map);
@@ -67,22 +68,23 @@ public class MemberController {
 					cookie.setMaxAge(0);
 				}
 				response.addCookie(cookie);
-				return 1;
+				return memberDto;
 			} else {
 				model.addAttribute("msg", "아이디 또는 비밀번호 확인 후 다시 로그인하세요!");
-				return 0;
+				return memberDto;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("msg", "로그인 중 문제 발생!!!");
-			return -1;
+			return null;
 		}
 	}
 	
 	@GetMapping("/logout")
-	public int logout(HttpSession session) {
+	public MemberDto logout(HttpSession session) {
+		MemberDto userInfo = (MemberDto)session.getAttribute("userinfo");
 		session.invalidate();
-		return 1;
+		return userInfo;
 	}
 	
 	@GetMapping("/list")
@@ -91,25 +93,27 @@ public class MemberController {
 		
 	}
 	@PutMapping("/modify")
-	public int modify(@RequestBody MemberDto memberDto) {
+	public MemberDto modify(@RequestBody MemberDto memberDto) {
 		try {
 			memberService.updateMember(memberDto);
-			return 1;
+			return memberDto;
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.debug("예외발생");
-			return -1;
+			return memberDto;
 		}
 		
 	}
 	@DeleteMapping(value = "delete/{userid}")
-	public int delete(@PathVariable("userid") String userId) {
+	public MemberDto delete(@PathVariable("userid") String userId) {
 		try {
+			MemberDto deletedMember = memberService.getMember(userId);
+			logger.debug(deletedMember.toString());
 			memberService.deleteMember(userId);
-			return 1;
+			return deletedMember;
 		}catch (Exception e) {
 			logger.debug("예외발생");
-			return -1;
+			return null;
 		}
 	}
 }
