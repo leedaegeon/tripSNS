@@ -1,11 +1,11 @@
 package com.ssafy.plan.model;
 
+//trip_plan_tb
 public class PlanDetailDto {
-	private int planId;
 	private int planDetailId;
+	private int planId;
 	private int attractionId;
 	private int restAreaId;
-	private int areaType;
 	private int planOrder;
 	
 	public PlanDetailDto() {
@@ -45,14 +45,6 @@ public class PlanDetailDto {
 		this.restAreaId = restAreaId;
 	}
 
-	public int getAreaType() {
-		return areaType;
-	}
-
-	public void setAreaType(int areaType) {
-		this.areaType = areaType;
-	}
-
 	public int getPlanOrder() {
 		return planOrder;
 	}
@@ -64,7 +56,7 @@ public class PlanDetailDto {
 	@Override
 	public String toString() {
 		return "PlanDetailDto [planId=" + planId + ", planDetailId=" + planDetailId + ", attractionId=" + attractionId
-				+ ", restAreaId=" + restAreaId + ", areaType=" + areaType + ", planOrder=" + planOrder + "]";
+				+ ", restAreaId=" + restAreaId + ", planOrder=" + planOrder + "]";
 	}
 	
 	

@@ -19,5 +19,7 @@ public class RestService {
 	public List<RestDto> showAll(){
 		return restMapper.selectAll();
 	}
-	
+	public RestDto showOne(int restId) {
+		return restMapper.selectOne(restId);
+	}
 }

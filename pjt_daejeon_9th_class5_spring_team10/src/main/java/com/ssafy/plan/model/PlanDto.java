@@ -2,6 +2,7 @@ package com.ssafy.plan.model;
 
 import java.util.List;
 
+//plan_board_tb
 public class PlanDto {
 	private int planId;
 	private int userId;
@@ -10,6 +11,7 @@ public class PlanDto {
 	private String planContent;
 	private int likeCnt;
 	private List<PlanDetailDto> planDetailList;
+	
 	public PlanDto() {
 		super();
 		// TODO Auto-generated constructor stub
