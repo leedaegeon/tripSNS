@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.ssafy.board.model.mapper.NoticeBoardMapper">
+
+	<resultMap type="NoticeBoardDto" id="article">
+		<result column="notice_no" property="noticeNo"/>
+		<result column="notice_writer" property="writerId"/>
+		<result column="user_name" property="writerName"/>
+		<result column="notice_title" property="noticeTitle"/>
+		<result column="notice_content" property="noticeContent"/>
+		<result column="notice_date" property="registerTime"/>
+	</resultMap>
+	
+	<select id="listArticle" resultMap="article">
+		select n.notice_no, n.notice_writer, n.notice_title, n.notice_content,
+		n.notice_date, u.user_name
+		from notice_tb n, user_tb u
+		where n.notice_writer = u.user_id
+	</select>
+
+	<select id="getArticle" parameterType="int"
+		resultMap="article">
+		select n.notice_no, n.notice_writer, n.notice_title, n.notice_content,
+		n.notice_date, u.user_name
+		from notice_tb n, user_tb u
+		where n.notice_writer = u.user_id
+		and n.notice_no =
+		#{articleNo}
+	</select>
+
+</mapper>
