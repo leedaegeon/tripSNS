@@ -28,8 +28,24 @@
 - GET 방식으로 하나의 여행지 정보 요청![image-1.png](./image-1.png)
 
 ### 3-2. 로그인
-- 회원가입 요청
-- 로그인 요청
+- GET 방식으로 전체 회원 정보 요청 ![image-12.png](./image-12.png)
+
+
+- POST 방식으로 회원가입 요청 ![image-7.png](./image-7.png)
+
+
+- POST 방식으로 로그인 요청 ![image-8.png](./image-8.png)
+
+
+- GET 방식으로 로그아웃 요청 ![image-11.png](./image-11.png)
+
+
+- PUT 방식으로 회원 정보 수정 요청 ![image-9.png](./image-9.png)
+
+
+- DELETE 방식으로 회원 탈퇴 ![image-10.png](./image-10.png)
+
+
 
 ### 3-3 공지 게시판
 - GET 방식으로 게시판의 모든 글 요청![image-2.png](./image-2.png)
@@ -48,5 +64,7 @@
 
 
 ### 3-4. 휴게소 조회
-- 휴게소 전체 리스트 요청
-- 하나의 휴게소 정보 요청
+- GET 방식으로 휴게소 전체 리스트 요청 ![image-13.png](./image-13.png)
+
+
+- GET 방식으로 하나의 휴게소 정보 요청 ![image-14.png](./image-14.png)
