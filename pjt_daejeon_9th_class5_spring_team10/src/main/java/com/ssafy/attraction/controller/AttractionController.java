@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.attraction.model.AttractionDto;
@@ -24,7 +25,7 @@ public class AttractionController {
 	}
 	
 	@GetMapping
-	public List<AttractionDto> searchAttractions(Map<String, Object> param) throws Exception {
+	public List<AttractionDto> searchAttractions(@RequestParam Map<String, Object> param) throws Exception {
 		return service.listAttractions(param);
 	}
 	
