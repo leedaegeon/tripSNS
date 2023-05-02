@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.plan.model.mapper.PlanMapper">
+
+	<resultMap type="PlanDto" id="plans">
+		<result column="plan_id" property="planId"/>
+		<result column="u_id" property="userId"/>
+		<result column="plan_title" property="userName"/>
+		<result column="plan_content" property="planTitle"/>
+		<result column="plan_date" property="planContent"/>
+		<result column="like" property="likeCnt"/>
+	</resultMap>
+	<resultMap type="PlanDetailDto" id="planDetail">
+		<result column="pd_id" property="planDetailId"/>
+	 	<result column="attr_id" property="attractionId"/>
+	 	<result column="rest_id" property="restAreaId"/>
+	 	<result column="order" property="planOrder"/>
+	</resultMap>
+	
+	<!-- 마이페이지에서 볼 수 있는 본인이 만든계획 -->
+	<select id="selectMine" resultMap="plans">
+		select pb.plan_id, pb.u_id, pb.plan_title, pb.plan_content, pb.plan_date, pl.like
+		from plan_board_tb pb left join plan_like_tb pl
+		on pb.plan_id = pl.p_id
+		where pb.u_id=#{userId}
+	</select>
+
+	<select id="selectPlanDetail" resultMap="PlanDetailDto">
+		select * 
+		from plan_board_tb pb join trip_plan_tb tpb
+		on pb.plan_id = tpb.pd_id
+	
+	</select>
+	<!-- select like %planTitle%인 계획  -->
+	
+	<!-- insert into plan_board_tb -->
+	
+	<!-- insert into plan_like_tb 여기에 likeCnt -->
+	
+	<!-- update -->
+	
+	<!-- delete(planId기준) -->
+</mapper>
