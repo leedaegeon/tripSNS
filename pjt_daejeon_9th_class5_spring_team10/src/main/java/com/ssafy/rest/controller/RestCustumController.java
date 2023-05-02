@@ -23,7 +23,7 @@ public class RestCustumController {
 		this.restService = restService;
 	}
 
-	@GetMapping
+	@GetMapping(value = "/list")
 	public List<RestDto> restList() {
 
 		List<RestDto> list = restService.showAll();
