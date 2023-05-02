@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<!-- <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssafy.plan.model.mapper.PlanMapper">
 
@@ -17,7 +17,7 @@
 	 	<result column="order" property="planOrder"/>
 	</resultMap>
 	
-	<!-- 마이페이지에서 볼 수 있는 본인이 만든계획 -->
+	마이페이지에서 볼 수 있는 본인이 만든계획
 	<select id="selectMine" resultMap="plans">
 		select pb.plan_id, pb.u_id, pb.plan_title, pb.plan_content, pb.plan_date, pl.like
 		from plan_board_tb pb left join plan_like_tb pl
@@ -31,13 +31,13 @@
 		on pb.plan_id = tpb.pd_id
 	
 	</select>
-	<!-- select like %planTitle%인 계획  -->
+	select like %planTitle%인 계획 
 	
-	<!-- insert into plan_board_tb -->
+	insert into plan_board_tb
 	
-	<!-- insert into plan_like_tb 여기에 likeCnt -->
+	insert into plan_like_tb 여기에 likeCnt
 	
-	<!-- update -->
+	update
 	
-	<!-- delete(planId기준) -->
-</mapper>
+	delete(planId기준)
+</mapper> -->
