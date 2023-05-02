@@ -8,7 +8,7 @@
  - 개발 기간 : 1일
  - 개발언어 / 프로그램 : Java / STS / Tomcat / MySQL
  - 필수 라이브러리 / 오픈소스 : Spring Framework(Spring Boot) / myBatis Framework
-
+ - 테스트 도구 : postman
 
 ## 2. 목차
 -----------------
@@ -47,6 +47,6 @@
 - DELETE 방식으로 게시글 삭제 요청![image-6.png](./image-6.png)
 
 
-### 4. 휴게소 조회
+### 3-4. 휴게소 조회
 - 휴게소 전체 리스트 요청
 - 하나의 휴게소 정보 요청
