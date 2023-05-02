@@ -19,6 +19,11 @@ public class AttractionService {
 	}
 
 	public List<AttractionDto> listAttractions(Map<String, Object> param) throws SQLException {
+		String keyword = (String) param.get("keyword");
+		if (keyword == null) {
+			keyword = "";
+		}
+		param.put("keyword", '%'+keyword+'%');
 		return attractionMapper.listAttractions(param);
 	}
 
