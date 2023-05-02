@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.ssafy.attraction.model.mapper.AttractionMapper">
+
+	<resultMap type="AttractionDto" id="attraction">
+		<result column="content_id" property="contentId" />
+		<result column="content_type_id" property="contentTypeId" />
+		<result column="first_image" property="image" />
+		<result column="sido_code" property="sidoCode" />
+		<result column="gugun_code" property="gugunCode" />
+	</resultMap>
+
+	<select id="listAttractions" resultMap="attraction">
+		SELECT CONTENT_ID, CONTENT_TYPE_ID, TITLE, ADDR1, ADDR2 FROM ATTRACTION_INFO
+		WHERE CONTENT_TYPE_ID = #{} AND SIDO_CODE = #{}
+		AND (TITLE LIKE #{} OR ADDR1 LIKE #{} OR ADDR2 LIKE #{})
+
+	</select>
+
+	<select id="getAttraction" parameterType="int" resultMap="attraction">
+		SELECT AI.CONTENT_ID, AI.CONTENT_TYPE_ID, AI.TITLE, AI.ADDR1, AI.ADDR2, AI.FIRST_IMAGE, AI.SIDO_CODE, AI.GUGUN_CODE, AI.LATITUDE, AI.LONGITUDE, AD.OVERVIEW
+		FROM ATTRACTION_INFO AI JOIN ATTRACTION_DESCRIPTION AD 
+		ON AI.CONTENT_ID = AD.CONTENT_ID
+		WHERE AI.CONTENT_ID = #{} 
+
+	</select>
+</mapper>
