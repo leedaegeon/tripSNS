@@ -4,12 +4,13 @@ public class NoticeBoardDto {
 
 	private int noticeNo;
 	private int noticeCategory;
-	private int writerId;
+	private String writerId;
 	private String writerName;
 	private String noticeTitle;
 	private String noticeContent;
 	private String registerTime;
 	private int likeCnt;
+	
 	public NoticeBoardDto() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -36,12 +37,12 @@ public class NoticeBoardDto {
 	}
 
 
-	public int getWriterId() {
+	public String getWriterId() {
 		return writerId;
 	}
 
 
-	public void setWriterId(int writerId) {
+	public void setWriterId(String writerId) {
 		this.writerId = writerId;
 	}
 

@@ -13,7 +13,7 @@ public interface NoticeBoardMapper {
 
 	void writeArticle(NoticeBoardDto boardDto) throws SQLException;
 
-	List<NoticeBoardDto> listArticle(Map<String, Object> param) throws SQLException;
+	List<NoticeBoardDto> listArticle() throws SQLException;
 
 	int getTotalArticleCount(Map<String, Object> param) throws SQLException;
 
