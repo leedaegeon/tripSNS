@@ -5,17 +5,18 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.ssafy.plan.model.PlanDto;
+import com.ssafy.plan.model.mapper.PlanMapper;
 
 @Service
 public class PlanService {
 	
-	private PlanService planService;
+	private PlanMapper planMapper;
 
-	public PlanService(PlanService planService) {
+	public PlanService(PlanMapper planMapper) {
 		super();
-		this.planService = planService;
+		this.planMapper = planMapper;
 	}
-	public List<PlanDto> selectMine(String userId){
-		return planService.selectMine(userId);
-	}
+//	public List<PlanDto> selectMine(String userId){
+//		return planMapper.listPlan(userId);
+//	}
 }

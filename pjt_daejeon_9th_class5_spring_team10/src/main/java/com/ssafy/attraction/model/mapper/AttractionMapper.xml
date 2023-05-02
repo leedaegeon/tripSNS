@@ -11,7 +11,7 @@
 		<result column="gugun_code" property="gugunCode" />
 	</resultMap>
 
-	<select id="listAttractions" resultMap="attraction">
+	<!-- <select id="listAttractions" resultMap="attraction">
 		SELECT CONTENT_ID, CONTENT_TYPE_ID, TITLE, ADDR1, ADDR2 FROM ATTRACTION_INFO
 		WHERE CONTENT_TYPE_ID = #{} AND SIDO_CODE = #{}
 		AND (TITLE LIKE #{} OR ADDR1 LIKE #{} OR ADDR2 LIKE #{})
@@ -24,5 +24,5 @@
 		ON AI.CONTENT_ID = AD.CONTENT_ID
 		WHERE AI.CONTENT_ID = #{} 
 
-	</select>
+	</select> -->
 </mapper>
