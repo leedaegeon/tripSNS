@@ -1,8 +1,6 @@
 package com.ssafy.board.model.service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -25,5 +23,17 @@ public class NoticeBoardService {
 	
 	public NoticeBoardDto getArticle(int articleNo) throws Exception {
 		return noticeBoardMapper.getArticle(articleNo);
+	}
+	
+	public void writeArticle(NoticeBoardDto noticeboardDto) throws Exception {
+		noticeBoardMapper.writeArticle(noticeboardDto);
+	}
+	
+	public void modifyArticle(NoticeBoardDto noticeboardDto) throws Exception {
+		noticeBoardMapper.modifyArticle(noticeboardDto);
+	}
+
+	public void deleteArticle(int articleNo) throws Exception {
+		noticeBoardMapper.deleteArticle(articleNo);
 	}
 }

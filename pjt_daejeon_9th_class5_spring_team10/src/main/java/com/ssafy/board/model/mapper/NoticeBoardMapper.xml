@@ -25,8 +25,22 @@
 		n.notice_date, u.user_name
 		from notice_tb n, user_tb u
 		where n.notice_writer = u.user_id
-		and n.notice_no =
-		#{articleNo}
+		and n.notice_no = #{noticeNo}
 	</select>
 
+	<insert id="writeArticle" parameterType="NoticeBoardDto">
+		insert into notice_tb (notice_title, notice_writer, notice_content, notice_date, notice_category)
+		values (#{noticeTitle}, #{writerId}, #{noticeContent}, now(), #{noticeCategory})
+	</insert>
+	
+	<delete id="deleteArticle" parameterType="int">
+		delete from notice_tb
+		where notice_no = #{noticeNo}
+	</delete>
+
+	<update id="modifyArticle" parameterType="NoticeBoardDto">
+		update notice_tb
+		set notice_title = #{noticeTitle}, notice_content = #{noticeContent}
+		where notice_no = #{noticeNo}
+	</update>
 </mapper>
