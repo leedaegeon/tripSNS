@@ -1,8 +1,5 @@
 package com.ssafy.config;
 
-import java.util.Arrays;
-import java.util.List;
-
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -26,7 +23,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer{
 	//properties 내부에 view resolver 등록
 	@Override
 	public void configureViewResolvers(ViewResolverRegistry registry) {
-		registry.jsp("/WEB-INF/views/", ".jsp");
+		registry.jsp("/webapp/WEB-INF/views/", ".jsp");
 	}
 
 	
