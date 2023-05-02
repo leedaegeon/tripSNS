@@ -1,6 +1,6 @@
 package com.ssafy.board.model;
 
-public class NoticeDto {
+public class NoticeBoardDto {
 
 	private int noticeNo;
 	private int noticeCategory;

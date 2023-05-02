@@ -6,22 +6,22 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.ssafy.board.model.NoticeDto;
+import com.ssafy.board.model.NoticeBoardDto;
 
 @Mapper
-public interface NoticeMapper {
+public interface NoticeBoardMapper {
 
-	void writeArticle(NoticeDto boardDto) throws SQLException;
+	void writeArticle(NoticeBoardDto boardDto) throws SQLException;
 
-	List<NoticeDto> listArticle(Map<String, Object> param) throws SQLException;
+	List<NoticeBoardDto> listArticle(Map<String, Object> param) throws SQLException;
 
 	int getTotalArticleCount(Map<String, Object> param) throws SQLException;
 
-	NoticeDto getArticle(int articleNo) throws SQLException;
+	NoticeBoardDto getArticle(int articleNo) throws SQLException;
 
 	void updateHit(int articleNo) throws SQLException;
 
-	void modifyArticle(NoticeDto boardDto) throws SQLException;
+	void modifyArticle(NoticeBoardDto boardDto) throws SQLException;
 
 	void deleteArticle(int articleNo) throws SQLException;
 
