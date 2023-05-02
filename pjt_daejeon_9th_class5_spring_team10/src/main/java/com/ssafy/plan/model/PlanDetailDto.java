@@ -5,5 +5,6 @@ public class PlanDetailDto {
 	private int planDetailId;
 	private int attractionId;
 	private int restAreaId;
+	private int areaType;
 	private int planOrder;
 }

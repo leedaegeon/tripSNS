@@ -9,4 +9,5 @@ public class NoticeBoardDto {
 	private String noticeTitle;
 	private String noticeContent;
 	private String registerTime;
+	private int likeCnt;
 }
