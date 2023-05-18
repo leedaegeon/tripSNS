@@ -1,8 +1,9 @@
+package com.ssafy.plan.model;
 //package com.ssafy.plan.model;
 //
 //public class PlanCommentDto {
 //	private int planId;
-//	private int userId;
+//	private String userId;
 //	private String content;
 //	public PlanCommentDto() {
 //		super();
