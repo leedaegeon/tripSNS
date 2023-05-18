@@ -12,12 +12,15 @@ import com.ssafy.member.model.MemberDto;
 public interface MemberMapper {
 
 	void joinMember(MemberDto memberDto) throws SQLException;
-	MemberDto loginMember(Map<String, String> map) throws SQLException;
+	MemberDto loginMember(MemberDto memberDto) throws SQLException;
 	
 	/* Admin */
 	List<MemberDto> listMember() throws SQLException;
 	MemberDto getMember(String userId) throws SQLException;
 	void updateMember(MemberDto memberDto) throws SQLException;
 	void deleteMember(String userId) throws SQLException;
-	
+	void saveRefreshToken(Map<String, String> map) throws SQLException;
+	public Object getRefreshToken(String userId) throws SQLException;
+	public void deleteRefreshToken(Map<String, String> map) throws SQLException;
+	public MemberDto userInfo(String userId) throws SQLException;
 }
