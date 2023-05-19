@@ -41,7 +41,7 @@ public class MemberController {
 	public static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 	private static final String SUCCESS = "success";
 	private static final String FAIL = "fail";
-	
+
 	private JwtServiceImpl jwtService;
 	private MemberService memberService;
 
@@ -50,22 +50,36 @@ public class MemberController {
 		this.jwtService = jwtService;
 		this.memberService = memberService;
 	}
-	
+
 	@PostMapping("/join")
-	@ApiOperation(value="회원가입", notes="회원정보를 DB에 저장", response=MemberDto.class)
-	public MemberDto join(MemberDto memberDto, Model model) {
+	@ApiOperation(value = "회원가입", notes = "회원정보를 DB에 저장", response = MemberDto.class)
+	public ResponseEntity<Map<String, Object>> join(
+			@RequestBody @ApiParam(value = "회원가입 시 필요한 회원정보(아이디, 비밀번호).", required = true) MemberDto memberDto,
+			Model model) {
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = null;
 		try {
-			memberService.joinMember(memberDto);
-			
-			return memberDto;
+			System.out.println("################################################");
+			System.out.println(memberDto);
+			if (memberService.joinMember(memberDto) == 1) {
+				resultMap.put("message", SUCCESS);
+				status = HttpStatus.ACCEPTED;
+			} else {
+				resultMap.put("message", FAIL);
+				status = HttpStatus.ACCEPTED;
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("msg", "회원 가입 중 문제 발생!!!");
-			return null;
+
+			logger.error("로그인 실패 : {}", e);
+			resultMap.put("message", e.getMessage());
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
 		}
+		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
-	
-	
+
 //	@PostMapping("/login")
 //	@ApiOperation(value="로그인", notes="아이디와 비밀번호를 입력하여 로그인", response=MemberDto.class)
 //	public MemberDto login(@RequestParam Map<String, String> map, @RequestParam(name = "saveid", required = false) String saveid, Model model, HttpSession session, HttpServletResponse response) {
@@ -94,7 +108,7 @@ public class MemberController {
 //			return null;
 //		}
 //	}
-	
+
 	@ApiOperation(value = "로그인", notes = "Access-token과 로그인 결과 메세지를 반환한다.", response = Map.class)
 	@PostMapping("/login")
 	public ResponseEntity<Map<String, Object>> login(
@@ -124,7 +138,7 @@ public class MemberController {
 		}
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
-	
+
 	@ApiOperation(value = "회원인증", notes = "회원 정보를 담은 Token을 반환한다.", response = Map.class)
 	@GetMapping("/info/{userid}")
 	public ResponseEntity<Map<String, Object>> getInfo(
@@ -155,7 +169,7 @@ public class MemberController {
 		}
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
-	
+
 //	@GetMapping("/logout")
 //	@ApiOperation(value="로그아웃", notes="로그아웃", response=MemberDto.class)
 //	public MemberDto logout(HttpSession session) {
@@ -163,7 +177,7 @@ public class MemberController {
 //		session.invalidate();
 //		return userInfo;
 //	}
-	
+
 	@ApiOperation(value = "로그아웃", notes = "회원 정보를 담은 Token을 제거한다.", response = Map.class)
 	@GetMapping("/logout/{userid}")
 	public ResponseEntity<?> removeToken(@PathVariable("userid") String userid) {
@@ -181,7 +195,7 @@ public class MemberController {
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 
 	}
-	
+
 	@ApiOperation(value = "Access Token 재발급", notes = "만료된 access token을 재발급받는다.", response = Map.class)
 	@PostMapping("/refresh")
 	public ResponseEntity<?> refreshToken(@RequestBody MemberDto memberDto, HttpServletRequest request)
@@ -205,15 +219,16 @@ public class MemberController {
 		}
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
-	
+
 	@GetMapping("/list")
-	@ApiOperation(value="회원리스트", notes="회원 리스트를 반환", response=List.class)
+	@ApiOperation(value = "회원리스트", notes = "회원 리스트를 반환", response = List.class)
 	public List<MemberDto> list() throws Exception {
 		return memberService.listMember();
-		
+
 	}
+
 	@PutMapping("/modify")
-	@ApiOperation(value="회원 정보 수정", notes="회원 정보 수정", response=MemberDto.class)
+	@ApiOperation(value = "회원 정보 수정", notes = "회원 정보 수정", response = MemberDto.class)
 	public MemberDto modify(@RequestBody MemberDto memberDto) {
 		try {
 			memberService.updateMember(memberDto);
@@ -223,17 +238,18 @@ public class MemberController {
 			logger.debug("예외발생");
 			return memberDto;
 		}
-		
+
 	}
+
 	@DeleteMapping(value = "delete/{userid}")
-	@ApiOperation(value="회원 탈퇴", notes="회원 정보 삭제", response=MemberDto.class)
+	@ApiOperation(value = "회원 탈퇴", notes = "회원 정보 삭제", response = MemberDto.class)
 	public MemberDto delete(@PathVariable("userid") String userId) {
 		try {
 			MemberDto deletedMember = memberService.getMember(userId);
 			logger.debug(deletedMember.toString());
 			memberService.deleteMember(userId);
 			return deletedMember;
-		}catch (Exception e) {
+		} catch (Exception e) {
 			logger.debug("예외발생");
 			return null;
 		}
