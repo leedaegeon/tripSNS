@@ -14,7 +14,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-@RequestMapping("/PlanBoard")
+@RequestMapping("/planboard")
 @Api("플랜 게시판 컨트롤러 API v1")
 public class PlanBoardController {
 	private PlanBoardService service;

@@ -59,7 +59,7 @@ public class SwaggerConfiguration {
 	}
 	@Bean
 	public Docket planBoardApi() {
-		return getDocket("플랜게시판", Predicates.or(PathSelectors.regex("/plan.*")));
+		return getDocket("플랜게시판", Predicates.or(PathSelectors.regex("/planboard.*")));
 
 	}
 		
