@@ -19,13 +19,19 @@
 	
 	<!-- 	전체 플랜 읽어오기 -->
 	<select id="listPlan" resultMap="plans">
-		select plan_id, pb.u_id, plan_title, plan_content, plan_date, pl.like
+		select plan_id, pb.u_id, plan_title, plan_content, 
+		case when date_format(plan_date, '%Y%m,%d') = date_format(now(), '%Y%m%d')
+		then date_format(plan_date, '%H:%i:%s')
+		else date_format(plan_date, '%y.%m.%d')
+		end plan_date, 
+		pl.like
 		from plan_board_tb pb left outer join plan_like_tb pl
 		on pb.plan_id = pl.p_id and pb.u_id = pl.u_id
- 
 	</select>
-
+	
 	<!-- 상세플랜: 선택된 한 유저의 글, 댓글, 좋아요 수, 상세플랜(plan_tb) -->
+	
+	
 	
 	
 

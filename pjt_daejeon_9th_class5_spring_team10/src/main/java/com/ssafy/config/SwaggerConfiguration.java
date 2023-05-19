@@ -67,6 +67,10 @@ public class SwaggerConfiguration {
 	public Docket allApi() {
 		return getDocket("전체", Predicates.or(PathSelectors.regex("/*.*")));
 	}
+	@Bean
+	public Docket sidogugunApi() {
+		return getDocket("시도구군", Predicates.or(PathSelectors.regex("/map/*")));
+	}
 
 	public Docket getDocket(String groupName, Predicate<String> predicate) {
 //		List<ResponseMessage> responseMessages = new ArrayList<ResponseMessage>();
@@ -79,6 +83,7 @@ public class SwaggerConfiguration {
 		predicateList.add(RequestHandlerSelectors.basePackage("com.ssafy.member.controller"));
 		predicateList.add(RequestHandlerSelectors.basePackage("com.ssafy.plan.controller"));		
 		predicateList.add(RequestHandlerSelectors.basePackage("com.ssafy.rest.controller"));
+		predicateList.add(RequestHandlerSelectors.basePackage("com.ssafy.map.controller"));
 		return new Docket(DocumentationType.SWAGGER_2)
 				.groupName(groupName).apiInfo(apiInfo())
 				.select()

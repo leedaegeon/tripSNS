@@ -8,7 +8,8 @@ import com.ssafy.attraction.model.AttractionDto;
 
 public interface AttractionMapper {
 	
-	List<AttractionDto> listAttractions(Map<String, Object> param) throws SQLException;
+	List<AttractionDto> listAttractions(AttractionDto param) throws SQLException;
+
 
 	AttractionDto getAttraction(int contentId) throws SQLException;
 

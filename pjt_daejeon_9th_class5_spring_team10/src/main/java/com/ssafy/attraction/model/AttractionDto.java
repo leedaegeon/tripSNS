@@ -15,6 +15,14 @@ public class AttractionDto{
 	private double latitude;
 	private double longitude;
 	private String overview;
+	private String keyword;
+	
+ 	public String getKeyword() {
+		return keyword;
+	}
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
 	public AttractionDto() {
 		super();
 		// TODO Auto-generated constructor stub

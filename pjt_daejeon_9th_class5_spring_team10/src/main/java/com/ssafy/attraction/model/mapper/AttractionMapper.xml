@@ -11,10 +11,15 @@
 		<result column="gugun_code" property="gugunCode" />
 	</resultMap>
 
-	<select id="listAttractions" resultMap="attraction">
-		SELECT CONTENT_ID, CONTENT_TYPE_ID, TITLE, ADDR1, ADDR2 FROM ATTRACTION_INFO
-		WHERE CONTENT_TYPE_ID = #{contentTypeId} AND SIDO_CODE = #{sidoCode}
-		AND (TITLE LIKE #{keyword} OR ADDR1 LIKE #{keyword} OR ADDR2 LIKE #{keyword});
+	<select id="listAttractions" resultMap="attraction" parameterType="AttractionDto">
+		SELECT CONTENT_ID, CONTENT_TYPE_ID, TITLE, ADDR1, ADDR2 
+		FROM ATTRACTION_INFO
+		WHERE CONTENT_TYPE_ID = #{contentTypeId} 
+		OR (SIDO_CODE = #{sidoCode}
+			AND GUGUN_CODE = #{gugunCode})
+		AND (TITLE LIKE #{keyword} 
+			OR ADDR1 LIKE #{keyword} 
+				OR ADDR2 LIKE #{keyword});
 
 	</select>
 

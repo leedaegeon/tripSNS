@@ -18,12 +18,12 @@ public class AttractionService {
 		this.attractionMapper = attractionMapper;
 	}
 
-	public List<AttractionDto> listAttractions(Map<String, Object> param) throws SQLException {
-		String keyword = (String) param.get("keyword");
+	public List<AttractionDto> listAttractions(AttractionDto param) throws SQLException {
+		String keyword = param.getKeyword();
 		if (keyword == null) {
 			keyword = "";
 		}
-		param.put("keyword", '%'+keyword+'%');
+		param.setKeyword('%'+keyword+'%');
 		return attractionMapper.listAttractions(param);
 	}
 
