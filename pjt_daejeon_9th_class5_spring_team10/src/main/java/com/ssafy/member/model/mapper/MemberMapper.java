@@ -11,7 +11,7 @@ import com.ssafy.member.model.MemberDto;
 @Mapper
 public interface MemberMapper {
 
-	void joinMember(MemberDto memberDto) throws SQLException;
+	int joinMember(MemberDto memberDto) throws SQLException;
 	MemberDto loginMember(MemberDto memberDto) throws SQLException;
 	
 	/* Admin */

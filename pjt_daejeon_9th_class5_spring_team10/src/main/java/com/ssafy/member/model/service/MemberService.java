@@ -18,8 +18,8 @@ public class MemberService {
 		this.memberMapper = memberMapper;
 	}
 	
-	public void joinMember(MemberDto memberDto) throws Exception {
-		memberMapper.joinMember(memberDto);
+	public int joinMember(MemberDto memberDto) throws Exception {
+		return memberMapper.joinMember(memberDto);
 	}
 	public MemberDto loginMember(MemberDto memberDto) throws Exception {
 		if (memberDto.getUserId() == null || memberDto.getUserPw() == null)
