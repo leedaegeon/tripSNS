@@ -63,12 +63,12 @@ public class MemberService {
 		return memberMapper.getMember(userId);
 	}
 
-	public void updateMember(MemberDto memberDto) throws Exception {
-		memberMapper.updateMember(memberDto);
+	public int updateMember(MemberDto memberDto) throws Exception {
+		return memberMapper.updateMember(memberDto);
 	}
 
-	public void deleteMember(String userId) throws Exception {
-		memberMapper.deleteMember(userId);		
+	public int deleteMember(String userId) throws Exception {
+		return memberMapper.deleteMember(userId);		
 	}
 
 	public MemberDto userInfo(String userid) throws Exception {
