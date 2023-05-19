@@ -11,11 +11,14 @@
 		<result column="gugun_code" property="gugunCode" />
 	</resultMap>
 
-	<select id="listAttractions" resultMap="attraction" parameterType="AttractionDto">
-		SELECT CONTENT_ID, CONTENT_TYPE_ID, TITLE, ADDR1, ADDR2 
+	<select id="listAttractions" resultMap="attraction" parameterType="Map">
+		SELECT CONTENT_ID, CONTENT_TYPE_ID, TITLE, ADDR1, ADDR2, FIRST_IMAGE
 		FROM ATTRACTION_INFO
-		WHERE CONTENT_TYPE_ID = #{contentTypeId} 
-		OR (SIDO_CODE = #{sidoCode}
+		WHERE 
+			<if test="contentTypeId.length() != 0">
+		 		CONTENT_TYPE_ID = #{contentTypeId}AND
+			</if> 
+		 (SIDO_CODE = #{sidoCode}
 			AND GUGUN_CODE = #{gugunCode})
 		AND (TITLE LIKE #{keyword} 
 			OR ADDR1 LIKE #{keyword} 
@@ -31,5 +34,9 @@
 		FROM ATTRACTION_INFO AI
 		WHERE AI.CONTENT_ID = #{contentId}
 	</select>
-	
+	<select id="getAttractionDescription" parameterType="String" resultType="String">
+		SELECT OVERVIEW
+		FROM ATTRACTION_DESCRIPTION
+		WHERE CONTENT_ID = #{contentId}
+	</select>
 </mapper>
