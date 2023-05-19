@@ -18,7 +18,7 @@ import com.ssafy.board.model.service.NoticeBoardService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
-//http://localhost:8080/swagger-ui.html
+//http://localhost:9999/swagger-ui.html
 @RestController
 @RequestMapping("/notice")
 @Api("공지 게시판 컨트롤러  API V1")

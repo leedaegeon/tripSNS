@@ -17,6 +17,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 //http://localhost:9999/swagger-ui.html
 import io.swagger.annotations.ApiParam;
+//http://localhost:9999/swagger-ui.html
 
 @RestController
 @RequestMapping("/attraction")
@@ -32,14 +33,26 @@ public class AttractionController {
 	
 	@GetMapping()
 	@ApiOperation(value="여행지 리스트 검색", notes="검색한 여행지 정보를 리스트로 반환", response=List.class)
-	public List<AttractionDto> searchAttractions(@RequestParam @ApiParam(value="여행지 리스트를 받아올 때 필요한 검색어", required=true) AttractionDto param) throws Exception {
+	public List<AttractionDto> searchAttractions(@RequestParam @ApiParam(value="여행지 리스트를 받아올 때 필요한 검색어", required=true) Map<String, String> param) throws Exception {
+//		System.out.println(param.get("contentTypeId") );
+//		System.out.println(param.get("sidoCode"));
+//		System.out.println(param.get("gugunCode"));
+//		System.out.println(param.get("keyword"));
+		
 		return service.listAttractions(param);
 	}
 	
-	@GetMapping("/{attractionId}")
-	@ApiOperation(value="여행지 한 곳 검색",notes="여행지 아이디에 해당하는 여행지 하나 검색" , response=AttractionDto.class)
-	public AttractionDto getArticle(@PathVariable("attractionId") int attractionId) throws Exception {
-		return service.getAttraction(attractionId);
+//	@GetMapping("/{attractionId}")
+//	@ApiOperation(value="여행지 한 곳 검색",notes="여행지 아이디에 해당하는 여행지 하나 검색" , response=AttractionDto.class)
+//	public AttractionDto getArticle(@PathVariable("attractionId") int attractionId) throws Exception {
+//		return service.getAttraction(attractionId);
+//	}
+//	
+	@GetMapping("/{contentId}")
+	@ApiOperation(value="여행지 설명 얻어오기", notes="선택한 여행지의 설명을 얻어오는 함수", response=String.class)
+	public String getAttractionDetail(@PathVariable("contentId") String contentId) throws Exception{
+		
+		return service.getAttractionDetail(contentId);
 	}
 	
 }

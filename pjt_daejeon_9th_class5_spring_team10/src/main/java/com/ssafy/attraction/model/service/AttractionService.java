@@ -18,18 +18,21 @@ public class AttractionService {
 		this.attractionMapper = attractionMapper;
 	}
 
-	public List<AttractionDto> listAttractions(AttractionDto param) throws SQLException {
-		String keyword = param.getKeyword();
+	public List<AttractionDto> listAttractions(Map<String, String> param) throws SQLException {		
+		String keyword = param.get("keyword");
 		if (keyword == null) {
 			keyword = "";
 		}
-		param.setKeyword('%'+keyword+'%');
+		param.put("keyword", '%'+keyword+'%');
 		return attractionMapper.listAttractions(param);
 	}
 
 	public AttractionDto getAttraction(int attractionId) throws SQLException {
 		return attractionMapper.getAttraction(attractionId);
 	}
-	
+	public String getAttractionDetail(String contentId) throws SQLException {
+		
+		return attractionMapper.getAttractionDescription(contentId); 
+	}
 	
 }
