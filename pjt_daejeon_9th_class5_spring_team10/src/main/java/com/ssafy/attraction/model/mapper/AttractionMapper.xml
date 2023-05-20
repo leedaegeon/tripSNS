@@ -7,12 +7,15 @@
 		<result column="content_id" property="contentId" />
 		<result column="content_type_id" property="contentTypeId" />
 		<result column="first_image" property="image" />
+		<result column="first_image2" property="smallImage"/>
 		<result column="sido_code" property="sidoCode" />
 		<result column="gugun_code" property="gugunCode" />
+		<result column="" property=""/>
+		<result column="" property=""/>
 	</resultMap>
 
 	<select id="listAttractions" resultMap="attraction" parameterType="Map">
-		SELECT CONTENT_ID, CONTENT_TYPE_ID, TITLE, ADDR1, ADDR2, FIRST_IMAGE
+		SELECT CONTENT_ID, CONTENT_TYPE_ID, TITLE, ADDR1, ADDR2, FIRST_IMAGE, FIRST_IMAGE2, LATITUDE, LONGITUDE
 		FROM ATTRACTION_INFO
 		WHERE 
 			<if test="contentTypeId.length() != 0">

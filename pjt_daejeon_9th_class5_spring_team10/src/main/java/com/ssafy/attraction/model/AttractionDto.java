@@ -9,7 +9,9 @@ public class AttractionDto{
 	private String title;
 	private String addr1;
 	private String addr2;
+	
 	private String image;
+	private String smallImage;
 	private int sidoCode;
 	private int gugunCode;
 	private double latitude;
@@ -17,7 +19,13 @@ public class AttractionDto{
 	private String overview;
 	private String keyword;
 	
- 	public String getKeyword() {
+ 	public String getSmallImage() {
+		return smallImage;
+	}
+	public void setSmallImage(String smallImage) {
+		this.smallImage = smallImage;
+	}
+	public String getKeyword() {
 		return keyword;
 	}
 	public void setKeyword(String keyword) {
