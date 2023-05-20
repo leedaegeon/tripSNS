@@ -11,7 +11,7 @@ import com.ssafy.board.model.NoticeBoardDto;
 @Mapper
 public interface NoticeBoardMapper {
 
-	void writeArticle(NoticeBoardDto boardDto) throws SQLException;
+	int writeArticle(NoticeBoardDto boardDto) throws SQLException;
 
 	List<NoticeBoardDto> listArticle() throws SQLException;
 
@@ -21,8 +21,8 @@ public interface NoticeBoardMapper {
 
 	void updateHit(int articleNo) throws SQLException;
 
-	void modifyArticle(NoticeBoardDto boardDto) throws SQLException;
+	int modifyArticle(NoticeBoardDto boardDto) throws SQLException;
 
-	void deleteArticle(int articleNo) throws SQLException;
+	int deleteArticle(int articleNo) throws SQLException;
 
 }
