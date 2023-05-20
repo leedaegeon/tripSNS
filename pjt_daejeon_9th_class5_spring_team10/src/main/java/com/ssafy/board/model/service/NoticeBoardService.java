@@ -25,15 +25,15 @@ public class NoticeBoardService {
 		return noticeBoardMapper.getArticle(articleNo);
 	}
 	
-	public void writeArticle(NoticeBoardDto noticeboardDto) throws Exception {
-		noticeBoardMapper.writeArticle(noticeboardDto);
+	public int writeArticle(NoticeBoardDto noticeboardDto) throws Exception {
+		return noticeBoardMapper.writeArticle(noticeboardDto);
 	}
 	
-	public void modifyArticle(NoticeBoardDto noticeboardDto) throws Exception {
-		noticeBoardMapper.modifyArticle(noticeboardDto);
+	public int modifyArticle(NoticeBoardDto noticeboardDto) throws Exception {
+		return noticeBoardMapper.modifyArticle(noticeboardDto);
 	}
 
-	public void deleteArticle(int articleNo) throws Exception {
-		noticeBoardMapper.deleteArticle(articleNo);
+	public int deleteArticle(int articleNo) throws Exception {
+		return noticeBoardMapper.deleteArticle(articleNo);
 	}
 }
