@@ -59,8 +59,6 @@ public class MemberController {
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = null;
 		try {
-			System.out.println("################################################");
-			System.out.println(memberDto);
 			if (memberService.joinMember(memberDto) == 1) {
 				resultMap.put("message", SUCCESS);
 				status = HttpStatus.ACCEPTED;
@@ -227,31 +225,50 @@ public class MemberController {
 
 	}
 
+	
 	@PutMapping("/modify")
 	@ApiOperation(value = "회원 정보 수정", notes = "회원 정보 수정", response = MemberDto.class)
-	public MemberDto modify(@RequestBody MemberDto memberDto) {
+	public ResponseEntity<Map<String, Object>> modify(@RequestBody MemberDto memberDto) {
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = null;
 		try {
-			memberService.updateMember(memberDto);
-			return memberDto;
+			if (memberService.updateMember(memberDto) == 1) {
+				resultMap.put("message", SUCCESS);
+				status = HttpStatus.ACCEPTED;
+			} else {
+				resultMap.put("message", FAIL);
+				status = HttpStatus.ACCEPTED;
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.debug("예외발생");
-			return memberDto;
+			resultMap.put("message", e.getMessage());
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
 		}
-
+		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
 
 	@DeleteMapping(value = "delete/{userid}")
 	@ApiOperation(value = "회원 탈퇴", notes = "회원 정보 삭제", response = MemberDto.class)
-	public MemberDto delete(@PathVariable("userid") String userId) {
+	public ResponseEntity<Map<String, Object>> delete(@PathVariable("userid") String userId) {
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = null;
 		try {
 			MemberDto deletedMember = memberService.getMember(userId);
 			logger.debug(deletedMember.toString());
-			memberService.deleteMember(userId);
-			return deletedMember;
+			
+			if (memberService.deleteMember(userId) == 1) {
+				resultMap.put("message", SUCCESS);
+				status = HttpStatus.ACCEPTED;
+			} else {
+				resultMap.put("message", FAIL);
+				status = HttpStatus.ACCEPTED;
+			}
 		} catch (Exception e) {
 			logger.debug("예외발생");
-			return null;
+			resultMap.put("message", e.getMessage());
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
 		}
+		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
 }
