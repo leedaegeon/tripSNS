@@ -48,8 +48,9 @@ public class NoticeBoardController {
 
 	@ApiOperation(value = "게시판 글보기", notes = "글번호에 해당하는 게시글의 정보를 반환한다.", response = NoticeBoardDto.class)
 	@GetMapping("/{noticeNo}")
-	public NoticeBoardDto getArticle(@PathVariable("noticeNo") int noticeNo) throws Exception {
-		return service.getArticle(noticeNo);
+	public ResponseEntity<NoticeBoardDto> getArticle(@PathVariable("noticeNo") int noticeNo) throws Exception {
+		service.updateHit(noticeNo);
+		return new ResponseEntity<NoticeBoardDto>(service.getArticle(noticeNo), HttpStatus.OK);
 	}
 
 	@PostMapping
