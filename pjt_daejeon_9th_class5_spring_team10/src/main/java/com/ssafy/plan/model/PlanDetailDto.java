@@ -2,11 +2,11 @@ package com.ssafy.plan.model;
 
 //trip_plan_tb
 public class PlanDetailDto {
-	private int planDetailId;
+	private int planDetailId; //autoInc
 	private int planId;
-	private int attractionId;
+	private int attractionId; //contentId
 	private int restAreaId;
-	private int planOrder;
+	private int planOrder; //autoInc
 	
 	public PlanDetailDto() {
 		super();

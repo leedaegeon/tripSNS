@@ -104,9 +104,10 @@ public class AttractionDto{
 	@Override
 	public String toString() {
 		return "AttractionDto [contentId=" + contentId + ", contentTypeId=" + contentTypeId + ", title=" + title
-				+ ", addr1=" + addr1 + ", addr2=" + addr2 + ", image=" + image + ", sidoCode=" + sidoCode
-				+ ", gugunCode=" + gugunCode + ", latitude=" + latitude + ", longitude=" + longitude + ", overview="
-				+ overview + "]";
+				+ ", addr1=" + addr1 + ", addr2=" + addr2 + ", image=" + image + ", smallImage=" + smallImage
+				+ ", sidoCode=" + sidoCode + ", gugunCode=" + gugunCode + ", latitude=" + latitude + ", longitude="
+				+ longitude + ", overview=" + overview + ", keyword=" + keyword + "]";
 	}
+	
 
 }

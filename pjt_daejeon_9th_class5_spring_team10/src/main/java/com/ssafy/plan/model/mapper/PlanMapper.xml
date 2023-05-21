@@ -29,6 +29,27 @@
 		on pb.plan_id = pl.p_id and pb.u_id = pl.u_id
 	</select>
 	
+	<!-- 플랜게시판 글 쓰기 -->
+	<insert id="writePlanBoard" parameterType="map">
+		INSERT INTO PLAN_BOARD_TB (U_ID, PLAN_TITLE, PLAN_CONTENT, PLAN_DATE)
+		VALUES (#{userId}, #{planTitle}, #{planContent}, NOW())
+		<selectKey keyProperty="plan_id" resultType="String" order="AFTER">
+			SELECT last_insert_id()
+		</selectKey>
+	</insert>
+
+	<!-- plan_tb에 글을 누가 작성했는지 기록 -->
+	<insert id="indexPlanBoardUser" parameterType="String">
+		INSERT INTO PLAN_TB (USER_ID)
+		VALUES (#{userId})
+	</insert>
+	
+	<!-- 선택한 여행지 저장 -->
+	<insert id="writePlans" parameterType="map">
+		INSERT INTO PLAN_DETAIL_TB (P_ID, ATTR_ID, P_ORDER)
+		VALUES (#{plan_id}, #{contentId}, #{pOrder})
+	</insert>
+	
 	<!-- 상세플랜: 선택된 한 유저의 글, 댓글, 좋아요 수, 상세플랜(plan_tb) -->
 	
 	
