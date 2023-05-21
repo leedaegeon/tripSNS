@@ -24,6 +24,9 @@ public class AttractionService {
 			keyword = "";
 		}
 		param.put("keyword", '%'+keyword+'%');
+		int nowPage = Integer.parseInt(param.get("nowPage"));
+		int max = (nowPage+8);
+		param.put("max", Integer.toString(max));
 		return attractionMapper.listAttractions(param);
 	}
 

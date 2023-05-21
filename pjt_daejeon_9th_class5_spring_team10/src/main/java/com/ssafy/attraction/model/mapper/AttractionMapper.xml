@@ -25,9 +25,9 @@
 			AND GUGUN_CODE = #{gugunCode})
 		AND (TITLE LIKE #{keyword} 
 			OR ADDR1 LIKE #{keyword} 
-				OR ADDR2 LIKE #{keyword});
-
-	</select>
+				OR ADDR2 LIKE #{keyword})
+			LIMIT ${nowPage}, ${max}
+ 	</select>
 
 	<select id="getAttraction" parameterType="int"
 		resultMap="attraction">
