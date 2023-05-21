@@ -2,6 +2,8 @@ package com.ssafy.plan.model;
 
 import java.util.List;
 
+import com.ssafy.attraction.model.AttractionDto;
+
 import io.swagger.annotations.ApiModel;
 
 //plan_board_tb
@@ -14,8 +16,17 @@ public class PlanDto {
 	private String planTitle;
 	private String planContent;
 	private String planDate;
+	private List<AttractionDto> plans;
 	private int likeCnt;
 	
+	public List<AttractionDto> getPlans() {
+		return plans;
+	}
+
+	public void setPlans(List<AttractionDto> plans) {
+		this.plans = plans;
+	}
+
 	public PlanDto() {
 		super();
 		// TODO Auto-generated constructor stub
