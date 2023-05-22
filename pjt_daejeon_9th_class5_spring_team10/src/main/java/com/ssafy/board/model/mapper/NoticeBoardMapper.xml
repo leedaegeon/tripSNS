@@ -10,11 +10,12 @@
 		<result column="notice_title" property="noticeTitle"/>
 		<result column="notice_content" property="noticeContent"/>
 		<result column="notice_date" property="registerTime"/>
+		<result column="hit" property="hit"/>
 	</resultMap>
 	
 	<select id="listArticle" resultMap="article">
 		select n.notice_no, n.notice_writer, n.notice_title, n.notice_content,
-		n.notice_date, u.user_name
+		n.notice_date, u.user_name, n.hit
 		from notice_tb n, user_tb u
 		where n.notice_writer = u.user_id
 	</select>
@@ -22,7 +23,7 @@
 	<select id="getArticle" parameterType="int"
 		resultMap="article">
 		select n.notice_no, n.notice_writer, n.notice_title, n.notice_content,
-		n.notice_date, u.user_name
+		n.notice_date, u.user_name, n.hit
 		from notice_tb n, user_tb u
 		where n.notice_writer = u.user_id
 		and n.notice_no = #{noticeNo}
@@ -43,4 +44,11 @@
 		set notice_title = #{noticeTitle}, notice_content = #{noticeContent}
 		where notice_no = #{noticeNo}
 	</update>
+	
+	<update id="updateHit" parameterType="int">
+		update notice_tb
+		set hit = hit + 1
+		where notice_no = #{noticeNo}
+	</update>
+	
 </mapper>

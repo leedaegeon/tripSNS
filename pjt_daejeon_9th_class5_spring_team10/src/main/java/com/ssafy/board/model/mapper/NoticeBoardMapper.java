@@ -17,9 +17,9 @@ public interface NoticeBoardMapper {
 
 	int getTotalArticleCount(Map<String, Object> param) throws SQLException;
 
-	NoticeBoardDto getArticle(int articleNo) throws SQLException;
+	NoticeBoardDto getArticle(int noticeNo) throws SQLException;
 
-	void updateHit(int articleNo) throws SQLException;
+	void updateHit(int noticeNo) throws SQLException;
 
 	int modifyArticle(NoticeBoardDto boardDto) throws SQLException;
 
