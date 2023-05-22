@@ -14,16 +14,20 @@ import com.ssafy.plan.model.PlanDto;
 public interface PlanMapper {
 	List<PlanDto> listPlan() throws SQLException;
 
-	List<Map<String, Integer>>listAttraction(int planId) throws SQLException;
-	
-	List<PlanDto> listMyPlanBoard(String userId) throws SQLException; 
-	
+	List<Map<String, Integer>> listAttraction(int planId) throws SQLException;
+
+	List<PlanDto> listMyPlanBoard(String userId) throws SQLException;
+
 	int writePlanBoard(Map<String, Object> map) throws SQLException;
-	
+
 	int indexPlanBoardUser(String userId) throws SQLException;
-	
+
 	int writePlans(Map<String, String> map) throws SQLException;
 	
+	List<PlanDto> listCommentedPlanBoard(String userId) throws SQLException;
+	
+	List<PlanDto> listWishPlanBoard(String userId) throws SQLException;
+
 //	List<PlanDetailDto> listPlanDetail(Map<String, Object> map) throws SQLException;
 //
 //	PlanDto getPlan(String planId) throws SQLException;

@@ -44,11 +44,20 @@ public class PlanBoardController {
 
 		return service.getPlanBoardList();
 	}
-	@GetMapping("/userId")
+	@GetMapping("/myplan")
 	@ApiOperation(value="내가 쓴 플랜게시판의 글 목록", notes="플랜게시판에 작성한 내 글 목록을 반환한다", response=List.class)
 	public List<PlanDto> getMyPlanBoardList(@RequestParam String userId) throws SQLException{
 		logger.info("getMyPlanBoardList - 호출");
+//		System.out.println(userId);
 		return service.getMyPlan(userId);
+	}
+	
+	@GetMapping("/wish")
+	@ApiOperation(value="내가 쓴 플랜게시판의 글 목록", notes="플랜게시판에 작성한 내 글 목록을 반환한다", response=List.class)
+	public List<PlanDto> getCommentedPlanBoardList(@RequestParam String userId) throws SQLException{
+		logger.info("getCommentedPlanBoardList - 호출");
+//		System.out.println(userId);
+		return service.getWishPlan(userId);
 	}
 	
 //	{"userId":"ssafy", "planTitle":"testPlan", "planContent":"test임"}

@@ -55,6 +55,18 @@ public class PlanBoardService {
 		
 		return planBoardList;
 	}
+	
+	public List<PlanDto> getWishPlan(String userId) throws SQLException{
+		List<PlanDto> planBoardList;
+		
+		planBoardList = planMapper.listWishPlanBoard(userId);
+		for(int i=0; i<planBoardList.size(); i++) {
+			List<Map<String, Integer>> tempList = getListAttraction(planBoardList.get(i).getPlanId());
+			planBoardList.get(i).setPlans(tempList);
+		}
+		
+		return planBoardList;
+	}
 	public int writePlanBoard(Map<String, Object> map)throws SQLException{
 		int isSuccess = planMapper.writePlanBoard(map);
 		return isSuccess;

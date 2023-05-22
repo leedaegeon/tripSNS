@@ -53,7 +53,26 @@
 		from plan_board_tb pb left outer join plan_like_tb pl
 		on pb.plan_id = pl.p_id and pb.u_id = pl.u_id
 		where pb.u_id = #{userId} 
-		 
+	</select>
+	
+	<!-- 댓글 단 플랜 불러오기 -->
+	<select id="listCommentedPlanBoard" resultMap="plans">
+		
+	</select>
+	
+	<!-- 찜한 플랜 불러오기 -->
+	<select id="listWishPlanBoard" resultMap="plans">
+		select plan_id, 
+		(select user_name from user_tb where user_id = pb.u_id) as user_name,
+		 plan_title, plan_content, ifnull(likeCnt, 0) as likeCnt
+		 from plan_board_tb pb left outer join (
+		select p_id, count(*) as likeCnt
+		from plan_like_tb
+		group by p_id) pl
+		on pb.plan_id = pl.p_id
+		where pb.plan_id in (select p_id
+		from plan_like_tb 
+		where u_id = #{userId});
 	</select>
 	
 	<!-- <select id="listMyPlan" result>
