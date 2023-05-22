@@ -4,7 +4,8 @@
 
 	<resultMap type="PlanDto" id="plans">
 		<result column="plan_id" property="planId"/>
-		<result column="u_id" property="userId"/>
+		<!-- <result column="u_id" property="userId"/> -->
+		<result column="user_name" property="userName"/>
 		<result column="plan_title" property="planTitle"/>
 		<result column="plan_content" property="planContent"/>
 		<result column="plan_date" property="planDate"/>
@@ -19,7 +20,9 @@
 	
 	<!-- 	전체 플랜 읽어오기 -->
 	<select id="listPlan" resultMap="plans">
-		select plan_id, pb.u_id, plan_title, plan_content, 
+		select plan_id, 
+		(select user_name from user_tb where user_id = pb.u_id) as user_name,
+		 plan_title, plan_content, 
 		case when date_format(plan_date, '%Y%m,%d') = date_format(now(), '%Y%m%d')
 		then date_format(plan_date, '%H:%i:%s')
 		else date_format(plan_date, '%y.%m.%d')
@@ -27,6 +30,22 @@
 		pl.like
 		from plan_board_tb pb left outer join plan_like_tb pl
 		on pb.plan_id = pl.p_id and pb.u_id = pl.u_id
+	</select>
+	
+	<!-- 내 플랜 불러오기 -->
+	<select id="listMyPlan" resultMap="plans">
+		select plan_id, 
+		(select user_name from user_tb where user_id = pb.u_id) as user_name,
+		 plan_title, plan_content, 
+		case when date_format(plan_date, '%Y%m,%d') = date_format(now(), '%Y%m%d')
+		then date_format(plan_date, '%H:%i:%s')
+		else date_format(plan_date, '%y.%m.%d')
+		end plan_date, 
+		pl.like
+		from (plan_board_tb pb left outer join plan_like_tb pl)
+		on pb.plan_id = pl.p_id and pb.u_id = pl.u_id
+		where pb.u_id = #{userId}
+	
 	</select>
 	
 	<!-- 플랜게시판 글 쓰기 -->

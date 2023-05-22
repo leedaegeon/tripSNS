@@ -14,6 +14,8 @@ import com.ssafy.plan.model.PlanDto;
 public interface PlanMapper {
 	List<PlanDto> listPlan() throws SQLException;
 
+	PlanDto listMyPlan(String userId) throws SQLException; 
+	
 	int writePlanBoard(Map<String, Object> map) throws SQLException;
 	
 	int indexPlanBoardUser(String userId) throws SQLException;

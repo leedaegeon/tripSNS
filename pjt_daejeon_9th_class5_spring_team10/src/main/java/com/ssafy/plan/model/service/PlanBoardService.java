@@ -33,6 +33,9 @@ public class PlanBoardService {
 		planboardList = planMapper.listPlan();
 		return planboardList;
 	}
+//	public PlanDto getMyPlan() throws SQLException{
+//		
+//	}
 	public int writePlanBoard(Map<String, Object> map)throws SQLException{
 		int isSuccess = planMapper.writePlanBoard(map);
 		return isSuccess;
@@ -52,10 +55,10 @@ public class PlanBoardService {
 		String planId = (String) map.get("plan_id");
 		int order = 1;
 		newMap.put("plan_id", planId);
-		List<Map<String, String>> attrList = (List<Map<String, String>>) map.get("plans");
-		for(Map<String, String> item : attrList) {
+		List<Map<String, Integer>> attrList = (List<Map<String, Integer>>) map.get("plans");
+		for(Map<String, Integer> item : attrList) {
 			
-			newMap.put("contentId", item.get("contentId"));
+			newMap.put("contentId", Integer.toString(item.get("contentId")));
 			newMap.put("pOrder", Integer.toString(order));
 			order++;
 //			logger.info(newMap.toString());
