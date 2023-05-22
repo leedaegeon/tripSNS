@@ -1,6 +1,7 @@
 package com.ssafy.attraction.model.service;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -30,8 +31,13 @@ public class AttractionService {
 		return attractionMapper.listAttractions(param);
 	}
 
-	public AttractionDto getAttraction(int attractionId) throws SQLException {
-		return attractionMapper.getAttraction(attractionId);
+	public List<AttractionDto> getAttraction(int[] attractionId) throws SQLException {
+		
+		List<AttractionDto> attrList = new ArrayList<AttractionDto>();
+		for(int i=0; i<attractionId.length; i++) {
+			attrList.add(attractionMapper.getAttraction(attractionId[i]));
+		}
+		return attrList;
 	}
 	public String getAttractionDetail(String contentId) throws SQLException {
 		
