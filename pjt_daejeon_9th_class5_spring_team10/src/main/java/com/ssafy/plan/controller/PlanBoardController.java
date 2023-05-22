@@ -58,7 +58,7 @@ public class PlanBoardController {
 		
 		service.indexPlanBoardUser(userId);
 		
-		List<Map<String, String>> attrList =  (List<Map<String, String>>) map.get("plans");
+		List<Map<String, Integer>> attrList =  (List<Map<String, Integer>>) map.get("plans");
 //			logger.info(attrList);
 //			for(Map<String, String> item : attrList) {
 //			}
