@@ -8,7 +8,7 @@ import com.ssafy.attraction.model.AttractionDto;
 import io.swagger.annotations.ApiModel;
 
 //plan_board_tb
-@ApiModel(value="PlanDto: 플랜게시판", description="플랜의 상세 정보를 나타낸다")
+@ApiModel(value = "PlanDto: 플랜게시판", description = "플랜의 상세 정보를 나타낸다")
 
 public class PlanDto {
 	private int planId;
@@ -19,7 +19,11 @@ public class PlanDto {
 	private String planDate;
 	private List<Map<String, Integer>> plans;
 	private int likeCnt;
-	
+
+	public PlanDto() {
+		super();
+	}
+
 	public List<Map<String, Integer>> getPlans() {
 		return plans;
 	}
@@ -28,51 +32,59 @@ public class PlanDto {
 		this.plans = plans;
 	}
 
-	public PlanDto() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	
+
 	public String getPlanDate() {
 		return planDate;
 	}
+
 	public void setPlanDate(String planDate) {
 		this.planDate = planDate;
 	}
-	
+
 	public int getPlanId() {
 		return planId;
 	}
+
 	public void setPlanId(int planId) {
 		this.planId = planId;
 	}
+
 	public String getUserId() {
 		return userId;
 	}
+
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
+
 	public String getUserName() {
 		return userName;
 	}
+
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
+
 	public String getPlanTitle() {
 		return planTitle;
 	}
+
 	public void setPlanTitle(String planTitle) {
 		this.planTitle = planTitle;
 	}
+
 	public String getPlanContent() {
 		return planContent;
 	}
+
 	public void setPlanContent(String planContent) {
 		this.planContent = planContent;
 	}
+
 	public int getLikeCnt() {
 		return likeCnt;
 	}
+
 	public void setLikeCnt(int likeCnt) {
 		this.likeCnt = likeCnt;
 	}
@@ -83,10 +95,5 @@ public class PlanDto {
 				+ planTitle + ", planContent=" + planContent + ", planDate=" + planDate + ", plans=" + plans
 				+ ", likeCnt=" + likeCnt + "]";
 	}
-	
-	
-	
-	
-	
-	
+
 }
