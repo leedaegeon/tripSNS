@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.attraction.model.AttractionDto;
@@ -43,6 +44,13 @@ public class PlanBoardController {
 
 		return service.getPlanBoardList();
 	}
+	@GetMapping("/userId")
+	@ApiOperation(value="내가 쓴 플랜게시판의 글 목록", notes="플랜게시판에 작성한 내 글 목록을 반환한다", response=List.class)
+	public List<PlanDto> getMyPlanBoardList(@RequestParam String userId) throws SQLException{
+		logger.info("getMyPlanBoardList - 호출");
+		return service.getMyPlan(userId);
+	}
+	
 //	{"userId":"ssafy", "planTitle":"testPlan", "planContent":"test임"}
 	@Transactional
 	@PostMapping

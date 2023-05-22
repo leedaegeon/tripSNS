@@ -18,7 +18,7 @@
 	 	<result column="order" property="planOrder"/>
 	</resultMap>
 	
-	<!-- 	전체 플랜 읽어오기 -->
+	<!-- 	전체 플랜게시 읽어오기 -->
 	<select id="listPlan" resultMap="plans">
 		select plan_id, 
 		(select user_name from user_tb where user_id = pb.u_id) as user_name,
@@ -32,8 +32,16 @@
 		on pb.plan_id = pl.p_id and pb.u_id = pl.u_id
 	</select>
 	
+	<!-- 플랜 게시글(plan_id)에 해당하는 여행지 리스트 불러오기 -->
+	<select id="listAttraction" resultType="Map">
+		SELECT ATTR_ID, P_ORDER
+		FROM plan_detail_tb
+		where p_id = #{planId}
+	</select>
+	
+	
 	<!-- 내 플랜 불러오기 -->
-	<select id="listMyPlan" resultMap="plans">
+	<select id="listMyPlanBoard" resultMap="plans">
 		select plan_id, 
 		(select user_name from user_tb where user_id = pb.u_id) as user_name,
 		 plan_title, plan_content, 
@@ -42,11 +50,16 @@
 		else date_format(plan_date, '%y.%m.%d')
 		end plan_date, 
 		pl.like
-		from (plan_board_tb pb left outer join plan_like_tb pl)
+		from plan_board_tb pb left outer join plan_like_tb pl
 		on pb.plan_id = pl.p_id and pb.u_id = pl.u_id
-		where pb.u_id = #{userId}
-	
+		where pb.u_id = #{userId} 
+		 
 	</select>
+	
+	<!-- <select id="listMyPlan" result>
+	</select>
+	 -->
+	<!-- 플랜 게시판 아이템의 여행지 리스트 불러오기 -->
 	
 	<!-- 플랜게시판 글 쓰기 -->
 	<insert id="writePlanBoard" parameterType="map">

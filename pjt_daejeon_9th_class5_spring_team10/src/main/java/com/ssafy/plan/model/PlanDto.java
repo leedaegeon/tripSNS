@@ -1,6 +1,7 @@
 package com.ssafy.plan.model;
 
 import java.util.List;
+import java.util.Map;
 
 import com.ssafy.attraction.model.AttractionDto;
 
@@ -16,14 +17,14 @@ public class PlanDto {
 	private String planTitle;
 	private String planContent;
 	private String planDate;
-	private List<AttractionDto> plans;
+	private List<Map<String, Integer>> plans;
 	private int likeCnt;
 	
-	public List<AttractionDto> getPlans() {
+	public List<Map<String, Integer>> getPlans() {
 		return plans;
 	}
 
-	public void setPlans(List<AttractionDto> plans) {
+	public void setPlans(List<Map<String, Integer>> plans) {
 		this.plans = plans;
 	}
 
@@ -75,11 +76,14 @@ public class PlanDto {
 	public void setLikeCnt(int likeCnt) {
 		this.likeCnt = likeCnt;
 	}
+
 	@Override
 	public String toString() {
 		return "PlanDto [planId=" + planId + ", userId=" + userId + ", userName=" + userName + ", planTitle="
-				+ planTitle + ", planContent=" + planContent + ", planDate=" + planDate + ", likeCnt=" + likeCnt + "]";
+				+ planTitle + ", planContent=" + planContent + ", planDate=" + planDate + ", plans=" + plans
+				+ ", likeCnt=" + likeCnt + "]";
 	}
+	
 	
 	
 	

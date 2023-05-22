@@ -27,15 +27,34 @@ public class PlanBoardService {
 		super();
 		this.planMapper = planMapper;
 	}
+	
 	public List<PlanDto> getPlanBoardList() throws SQLException {
-		List<PlanDto> planboardList;
+		List<PlanDto> planBoardList;
 		
-		planboardList = planMapper.listPlan();
-		return planboardList;
+		planBoardList = planMapper.listPlan();
+		for(int i=0; i<planBoardList.size(); i++) {
+			List<Map<String, Integer>> tempList = getListAttraction(planBoardList.get(i).getPlanId());
+			planBoardList.get(i).setPlans(tempList);
+		}
+		
+		return planBoardList;
 	}
-//	public PlanDto getMyPlan() throws SQLException{
-//		
-//	}
+	public List<Map<String, Integer>> getListAttraction(int planId)throws SQLException{
+		List<Map<String, Integer>> AttrList = planMapper.listAttraction(planId);
+		return AttrList;
+		
+	}
+	public List<PlanDto> getMyPlan(String userId) throws SQLException{
+		List<PlanDto> planBoardList;
+		
+		planBoardList = planMapper.listMyPlanBoard(userId);
+		for(int i=0; i<planBoardList.size(); i++) {
+			List<Map<String, Integer>> tempList = getListAttraction(planBoardList.get(i).getPlanId());
+			planBoardList.get(i).setPlans(tempList);
+		}
+		
+		return planBoardList;
+	}
 	public int writePlanBoard(Map<String, Object> map)throws SQLException{
 		int isSuccess = planMapper.writePlanBoard(map);
 		return isSuccess;
