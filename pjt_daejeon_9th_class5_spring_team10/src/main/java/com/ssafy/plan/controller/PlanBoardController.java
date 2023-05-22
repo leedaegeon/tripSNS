@@ -41,7 +41,7 @@ public class PlanBoardController {
 	@ApiOperation(value = "플랜 게시판 글목록", notes = "모든 플랜게시판의 게시글의 정보를 반환한다.", response = List.class)
 	public List<PlanDto> getPlanBoardList() throws SQLException{
 		logger.info("getPlanBoardList - 호출");
-
+		
 		return service.getPlanBoardList();
 	}
 	@GetMapping("/userId")
