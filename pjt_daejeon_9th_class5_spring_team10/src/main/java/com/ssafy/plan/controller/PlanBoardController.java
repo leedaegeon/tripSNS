@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.plan.model.PlanDto;
+import com.ssafy.plan.model.service.CommentService;
 import com.ssafy.plan.model.service.PlanBoardService;
 
 import io.swagger.annotations.Api;
@@ -32,8 +34,9 @@ public class PlanBoardController {
 	private static final String FAIL = "fail";
 
 	private PlanBoardService service;
+	
 
-	public PlanBoardController(PlanBoardService service) {
+	public PlanBoardController(PlanBoardService service, CommentService commentService) {
 		super();
 		this.service = service;
 	}
@@ -74,7 +77,7 @@ public class PlanBoardController {
 	public List<PlanDto> getPlanDetailList() throws SQLException {
 		logger.info("getPlanDetailList");
 		List<PlanDto> data = service.getPlanBoardList();
-
+		
 		return service.getPlanDetailList(data);
 	}
 
