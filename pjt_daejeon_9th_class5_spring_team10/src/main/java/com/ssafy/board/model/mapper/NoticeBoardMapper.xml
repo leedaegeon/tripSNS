@@ -18,6 +18,7 @@
 		n.notice_date, u.user_name, n.hit
 		from notice_tb n, user_tb u
 		where n.notice_writer = u.user_id
+		order by notice_date desc
 	</select>
 
 	<select id="getArticle" parameterType="int"
