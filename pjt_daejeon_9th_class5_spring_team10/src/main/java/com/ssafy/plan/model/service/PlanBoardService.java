@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ssafy.attraction.model.AttractionDto;
+import com.ssafy.attraction.model.mapper.AttractionMapper;
 import com.ssafy.plan.controller.PlanBoardController;
 import com.ssafy.plan.model.PlanDto;
 import com.ssafy.plan.model.mapper.PlanMapper;
@@ -21,10 +22,12 @@ public class PlanBoardService {
 	private static final Logger logger = LoggerFactory.getLogger(PlanBoardController.class);
 
 	private PlanMapper planMapper;
-
-	public PlanBoardService(PlanMapper planMapper) {
+	private AttractionMapper attractionMapper;
+	
+	public PlanBoardService(PlanMapper planMapper, AttractionMapper attractionMapper) {
 		super();
 		this.planMapper = planMapper;
+		this.attractionMapper = attractionMapper;
 	}
 
 	public List<PlanDto> getPlanBoardList() throws SQLException {
@@ -81,6 +84,26 @@ public class PlanBoardService {
 		return planBoardList;
 	}
 
+	public List<PlanDto> getPlanDetailList(List<PlanDto>data) throws SQLException{
+		for(int i=0; i<data.size(); i++) {
+			List<Map<String, Integer>> plans = data.get(i).getPlans();
+			int[] attractionList = new int[plans.size()];
+			List<AttractionDto> attrList = new ArrayList<AttractionDto>();
+			for(int j=0; j<plans.size(); j++) {
+//				attractionList[j]= plans.get(j).get("ATTR_ID");
+				//attributeId(contentId)배열에 추
+				attrList.add(attractionMapper.getAttraction(plans.get(j).get("ATTR_ID")));
+			}
+//			data.get(i)에 list<AttractionDto>추  
+			data.get(i).setAttrInfos(attrList);
+		}
+		
+		
+		return data;
+		
+	}
+	
+	
 	public int writePlanBoard(Map<String, Object> map) throws SQLException {
 		int isSuccess = planMapper.writePlanBoard(map);
 		return isSuccess;

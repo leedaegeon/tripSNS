@@ -68,6 +68,16 @@ public class PlanBoardController {
 		return service.getCommentedPlan(userId);
 	}
 	
+	@GetMapping("/detail")
+	@ApiOperation(value="모든 사람이 작성한 플랜 게시판의 글 목록 및 여행지", notes="모든 사람이 작성한 플랜 게시판의 글 목록 및 여행지",response=List.class)
+	public List<PlanDto>getPlanDetailList()throws SQLException{
+		logger.info("getPlanDetailList");
+		List<PlanDto> data = service.getPlanBoardList();
+		
+		return service.getPlanDetailList(data);
+	}
+	
+	
 //	{"userId":"ssafy", "planTitle":"testPlan", "planContent":"test임"}
 	@Transactional
 	@PostMapping
