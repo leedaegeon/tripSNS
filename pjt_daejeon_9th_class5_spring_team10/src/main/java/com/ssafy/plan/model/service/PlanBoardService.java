@@ -130,7 +130,8 @@ public class PlanBoardService {
 				attrList.add(attractionMapper.getAttraction(plans.get(j).get("ATTR_ID")));
 			}
 			data.get(i).setAttrInfos(attrList);
-			
+			data.get(i).setComments(commentMapper.list(data.get(i).getPlanId()));
+
 			// 찜하기 목록에 있는 플랜인지
 			if (likedPList.contains(data.get(i).getPlanId())) {
 				data.get(i).setWish(true);
