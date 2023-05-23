@@ -8,8 +8,9 @@
 		<result column="user_name" property="userName" />
 		<result column="plan_title" property="planTitle" />
 		<result column="plan_content" property="planContent" />
-		<result column="date" property="planDate" />
-		<result column="like" property="likeCnt" />
+		<result column="plan_date" property="planDate" />
+		<result column="likeCnt" property="likeCnt" />
+
 	</resultMap>
 	<resultMap type="PlanDetailDto" id="planDetail">
 		<result column="pd_id" property="planDetailId" />
