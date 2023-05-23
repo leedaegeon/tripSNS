@@ -78,6 +78,18 @@ public class PlanBoardController {
 		return service.getPlanDetailList(data);
 	}
 
+	/////////////////////////////////////////
+	@GetMapping("/detail-with-userid")
+	@ApiOperation(value = "모든 사람이 작성한 플랜 게시판의 글 목록 및 여행지 + 찜하기 목록에 있는지", notes = "모든 사람이 작성한 플랜 게시판의 글 목록 및 여행지", response = List.class)
+	public List<PlanDto> getPlanDetailListWithUserId(@RequestParam String userId) throws SQLException {
+		logger.info("getPlanDetailListWithUserId");
+		List<PlanDto> data = service.getPlanBoardList();
+
+		return service.getPlanDetailListWithUserId(data, userId);
+	}
+
+	/////////////////////////////////////////
+
 //	{"userId":"ssafy", "planTitle":"testPlan", "planContent":"test임"}
 	@Transactional
 	@PostMapping

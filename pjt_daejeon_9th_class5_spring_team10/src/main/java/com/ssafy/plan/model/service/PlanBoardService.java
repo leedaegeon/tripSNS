@@ -23,7 +23,7 @@ public class PlanBoardService {
 
 	private PlanMapper planMapper;
 	private AttractionMapper attractionMapper;
-	
+
 	public PlanBoardService(PlanMapper planMapper, AttractionMapper attractionMapper) {
 		super();
 		this.planMapper = planMapper;
@@ -56,6 +56,14 @@ public class PlanBoardService {
 			List<Map<String, Integer>> tempList = getListAttraction(planBoardList.get(i).getPlanId());
 			planBoardList.get(i).setPlans(tempList);
 		}
+		for (int i = 0; i < planBoardList.size(); i++) {
+			List<Map<String, Integer>> plans = planBoardList.get(i).getPlans();
+			List<AttractionDto> attrList = new ArrayList<AttractionDto>();
+			for (int j = 0; j < plans.size(); j++) {
+				attrList.add(attractionMapper.getAttraction(plans.get(j).get("ATTR_ID")));
+			}
+			planBoardList.get(i).setAttrInfos(attrList);
+		}
 
 		return planBoardList;
 	}
@@ -68,20 +76,15 @@ public class PlanBoardService {
 			List<Map<String, Integer>> tempList = getListAttraction(planBoardList.get(i).getPlanId());
 			planBoardList.get(i).setPlans(tempList);
 		}
-		for(int i=0; i<planBoardList.size(); i++) {
+		for (int i = 0; i < planBoardList.size(); i++) {
 			List<Map<String, Integer>> plans = planBoardList.get(i).getPlans();
-			int[] attractionList = new int[plans.size()];
 			List<AttractionDto> attrList = new ArrayList<AttractionDto>();
-			for(int j=0; j<plans.size(); j++) {
-//				attractionList[j]= plans.get(j).get("ATTR_ID");
-				//attributeId(contentId)배열에 추
+			for (int j = 0; j < plans.size(); j++) {
 				attrList.add(attractionMapper.getAttraction(plans.get(j).get("ATTR_ID")));
 			}
-//			data.get(i)에 list<AttractionDto>추  
 			planBoardList.get(i).setAttrInfos(attrList);
 		}
-		
-		
+
 		return planBoardList;
 	}
 
@@ -93,30 +96,52 @@ public class PlanBoardService {
 			List<Map<String, Integer>> tempList = getListAttraction(planBoardList.get(i).getPlanId());
 			planBoardList.get(i).setPlans(tempList);
 		}
+		for (int i = 0; i < planBoardList.size(); i++) {
+			List<Map<String, Integer>> plans = planBoardList.get(i).getPlans();
+			List<AttractionDto> attrList = new ArrayList<AttractionDto>();
+			for (int j = 0; j < plans.size(); j++) {
+				attrList.add(attractionMapper.getAttraction(plans.get(j).get("ATTR_ID")));
+			}
+			planBoardList.get(i).setAttrInfos(attrList);
+		}
 
 		return planBoardList;
 	}
 
-	public List<PlanDto> getPlanDetailList(List<PlanDto>data) throws SQLException{
-		for(int i=0; i<data.size(); i++) {
+	public List<PlanDto> getPlanDetailList(List<PlanDto> data) throws SQLException {
+		for (int i = 0; i < data.size(); i++) {
 			List<Map<String, Integer>> plans = data.get(i).getPlans();
-			int[] attractionList = new int[plans.size()];
 			List<AttractionDto> attrList = new ArrayList<AttractionDto>();
-			for(int j=0; j<plans.size(); j++) {
-//				attractionList[j]= plans.get(j).get("ATTR_ID");
-				//attributeId(contentId)배열에 추
+			for (int j = 0; j < plans.size(); j++) {
 				attrList.add(attractionMapper.getAttraction(plans.get(j).get("ATTR_ID")));
 			}
-//			data.get(i)에 list<AttractionDto>추  
 			data.get(i).setAttrInfos(attrList);
 		}
 		
-		
 		return data;
-		
+
 	}
 	
-	
+	public List<PlanDto> getPlanDetailListWithUserId(List<PlanDto> data, String userId) throws SQLException {
+		List<Integer> likedPList = planMapper.likedPlanIdList(userId);
+		for (int i = 0; i < data.size(); i++) {
+			List<Map<String, Integer>> plans = data.get(i).getPlans();
+			List<AttractionDto> attrList = new ArrayList<AttractionDto>();
+			for (int j = 0; j < plans.size(); j++) {
+				attrList.add(attractionMapper.getAttraction(plans.get(j).get("ATTR_ID")));
+			}
+			data.get(i).setAttrInfos(attrList);
+			
+			// 찜하기 목록에 있는 플랜인지
+			if (likedPList.contains(data.get(i).getPlanId())) {
+				data.get(i).setWish(true);
+			}
+		}
+		
+		return data;
+
+	}
+
 	public int writePlanBoard(Map<String, Object> map) throws SQLException {
 		int isSuccess = planMapper.writePlanBoard(map);
 		return isSuccess;
