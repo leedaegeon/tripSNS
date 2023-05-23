@@ -68,7 +68,20 @@ public class PlanBoardService {
 			List<Map<String, Integer>> tempList = getListAttraction(planBoardList.get(i).getPlanId());
 			planBoardList.get(i).setPlans(tempList);
 		}
-
+		for(int i=0; i<planBoardList.size(); i++) {
+			List<Map<String, Integer>> plans = planBoardList.get(i).getPlans();
+			int[] attractionList = new int[plans.size()];
+			List<AttractionDto> attrList = new ArrayList<AttractionDto>();
+			for(int j=0; j<plans.size(); j++) {
+//				attractionList[j]= plans.get(j).get("ATTR_ID");
+				//attributeId(contentId)배열에 추
+				attrList.add(attractionMapper.getAttraction(plans.get(j).get("ATTR_ID")));
+			}
+//			data.get(i)에 list<AttractionDto>추  
+			planBoardList.get(i).setAttrInfos(attrList);
+		}
+		
+		
 		return planBoardList;
 	}
 
