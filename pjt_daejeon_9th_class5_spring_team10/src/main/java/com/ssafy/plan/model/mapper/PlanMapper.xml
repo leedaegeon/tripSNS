@@ -10,6 +10,7 @@
 		<result column="plan_content" property="planContent" />
 		<result column="plan_date" property="planDate" />
 		<result column="likeCnt" property="likeCnt" />
+
 	</resultMap>
 	<resultMap type="PlanDetailDto" id="planDetail">
 		<result column="pd_id" property="planDetailId" />
@@ -25,12 +26,12 @@
 		from user_tb where user_id = pb.u_id) as user_name,
 		plan_title,
 		plan_content,
-		case when date_format(plan_date, '%Y%m,%d') =
+		case when date_format(plan_date, '%Y%m%d') =
 		date_format(now(), '%Y%m%d')
 		then date_format(plan_date, '%H:%i:%s')
 		else date_format(plan_date,
 		'%y.%m.%d')
-		end plan_date,
+		end date,
 		ifnull(likeCnt,0) as likeCnt
 		from plan_board_tb pb left outer join (
 		select p_id,
@@ -38,6 +39,7 @@
 		from plan_like_tb
 		group by p_id) pl
 		on pb.plan_id = pl.p_id
+		order by plan_date desc
 	</select>
 
 	<!-- 플랜 게시글(plan_id)에 해당하는 여행지 리스트 불러오기 -->
@@ -45,6 +47,7 @@
 		SELECT ATTR_ID, P_ORDER
 		FROM plan_detail_tb
 		where p_id = #{planId}
+		order by P_ORDER asc
 	</select>
 
 
@@ -53,11 +56,11 @@
 		select plan_id, (select
 		user_name from user_tb where user_id = pb.u_id) as user_name,
 		plan_title, plan_content,
-		case when date_format(plan_date, '%Y%m,%d') =
+		case when date_format(plan_date, '%Y%m%d') =
 		date_format(now(), '%Y%m%d')
 		then date_format(plan_date, '%H:%i:%s')
 		else date_format(plan_date, '%y.%m.%d')
-		end plan_date,
+		end date,
 		ifnull(likeCnt,0) as likeCnt
 		from plan_board_tb pb left outer join (
 		select p_id,
@@ -66,6 +69,7 @@
 		group by p_id) pl
 		on pb.plan_id = pl.p_id
 		where pb.u_id = #{userId}
+		order by plan_date desc
 	</select>
 
 	<!-- 댓글 단 플랜 불러오기 -->
@@ -73,10 +77,10 @@
 		select plan_id, 
 		(select user_name from user_tb where user_id = pb.u_id) as user_name,
 		 plan_title, plan_content, 
-		 case when date_format(plan_date, '%Y%m,%d') = date_format(now(), '%Y%m%d')
+		 case when date_format(plan_date, '%Y%m%d') = date_format(now(), '%Y%m%d')
 		then date_format(plan_date, '%H:%i:%s')
 		else date_format(plan_date, '%y.%m.%d')
-		end plan_date, 
+		end date, 
 		 ifnull(likeCnt, 0) as likeCnt
 		 from plan_board_tb pb left outer join (
 		select p_id, count(*) as likeCnt
@@ -85,7 +89,8 @@
 		on pb.plan_id = pl.p_id
 		where pb.plan_id in (select p_id
 		from plan_comment_tb 
-		where u_id = #{userId});
+		where u_id = #{userId})
+		order by plan_date desc
 	</select>
 
 	<!-- 찜한 플랜 불러오기 -->
@@ -94,11 +99,11 @@
 		(select
 		user_name from user_tb where user_id = pb.u_id) as user_name,
 		plan_title, plan_content,
-		case when date_format(plan_date, '%Y%m,%d') =
+		case when date_format(plan_date, '%Y%m%d') =
 		date_format(now(), '%Y%m%d')
 		then date_format(plan_date, '%H:%i:%s')
 		else date_format(plan_date, '%y.%m.%d')
-		end plan_date,
+		end date,
 		ifnull(likeCnt, 0) as likeCnt
 		from plan_board_tb pb left outer join (
 		select p_id,
@@ -108,7 +113,8 @@
 		on pb.plan_id = pl.p_id
 		where pb.plan_id in (select p_id
 		from plan_like_tb
-		where u_id = #{userId});
+		where u_id = #{userId})
+		order by plan_date desc
 	</select>
 
 	<!-- <select id="listMyPlan" result> </select> -->
@@ -141,7 +147,7 @@
 	<!-- 상세플랜: 선택된 한 유저의 글, 댓글, 좋아요 수, 상세플랜(plan_tb) -->
 
 
-	<select id="likedPlanIdList" parameterType="String">
+	<select id="likedPlanIdList" parameterType="String" resultType="Integer">
 		select p_id
 		from plan_like_tb
 		where u_id = #{userId};
