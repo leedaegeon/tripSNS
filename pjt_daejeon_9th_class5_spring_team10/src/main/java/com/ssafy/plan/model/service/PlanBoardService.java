@@ -103,11 +103,9 @@ public class PlanBoardService {
 			int[] attractionList = new int[plans.size()];
 			List<AttractionDto> attrList = new ArrayList<AttractionDto>();
 			for(int j=0; j<plans.size(); j++) {
-//				attractionList[j]= plans.get(j).get("ATTR_ID");
-				//attributeId(contentId)배열에 추
+
 				attrList.add(attractionMapper.getAttraction(plans.get(j).get("ATTR_ID")));
 			}
-//			data.get(i)에 list<AttractionDto>추  
 			data.get(i).setAttrInfos(attrList);
 		}
 		

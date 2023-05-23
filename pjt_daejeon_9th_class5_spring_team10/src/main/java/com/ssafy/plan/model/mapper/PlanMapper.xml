@@ -9,7 +9,7 @@
 		<result column="plan_title" property="planTitle" />
 		<result column="plan_content" property="planContent" />
 		<result column="plan_date" property="planDate" />
-		<result column="like" property="likeCnt" />
+		<result column="likeCnt" property="likeCnt" />
 	</resultMap>
 	<resultMap type="PlanDetailDto" id="planDetail">
 		<result column="pd_id" property="planDetailId" />
