@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.ssafy.attraction.model.AttractionDto;
+import com.ssafy.plan.model.mapper.CommentMapper;
 
 import io.swagger.annotations.ApiModel;
 
@@ -19,8 +20,20 @@ public class PlanDto {
 	private String planDate;
 	private List<Map<String, Integer>> plans;
 	private List<AttractionDto> attrInfos;
+	private List<CommentDto> comments;
+	
+	
 	private int likeCnt;
 	private boolean isWish;
+
+	
+	public List<CommentDto> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<CommentDto> comments) {
+		this.comments = comments;
+	}
 
 	public List<AttractionDto> getAttrInfos() {
 		return attrInfos;

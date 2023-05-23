@@ -15,6 +15,7 @@ import com.ssafy.attraction.model.AttractionDto;
 import com.ssafy.attraction.model.mapper.AttractionMapper;
 import com.ssafy.plan.controller.PlanBoardController;
 import com.ssafy.plan.model.PlanDto;
+import com.ssafy.plan.model.mapper.CommentMapper;
 import com.ssafy.plan.model.mapper.PlanMapper;
 
 @Service
@@ -23,11 +24,13 @@ public class PlanBoardService {
 
 	private PlanMapper planMapper;
 	private AttractionMapper attractionMapper;
+	private CommentMapper commentMapper;
 	
-	public PlanBoardService(PlanMapper planMapper, AttractionMapper attractionMapper) {
+	public PlanBoardService(PlanMapper planMapper, AttractionMapper attractionMapper, CommentMapper commentMapper) {
 		super();
 		this.planMapper = planMapper;
 		this.attractionMapper = attractionMapper;
+		this.commentMapper = commentMapper;
 	}
 
 	public List<PlanDto> getPlanBoardList() throws SQLException {
@@ -109,6 +112,8 @@ public class PlanBoardService {
 			}
 //			data.get(i)에 list<AttractionDto>추  
 			data.get(i).setAttrInfos(attrList);
+			
+			data.get(i).setComments(commentMapper.list(data.get(i).getPlanId()));
 		}
 		
 		
