@@ -26,8 +26,13 @@ public class CommentService {
 		return commentMapper.list(planId);
 	}
 
-	public boolean create(CommentDto commentDto) {
-		return commentMapper.create(commentDto) == 1;
+	public List<CommentDto> create(CommentDto commentDto) {
+		if(commentMapper.create(commentDto) == 1) {
+			return commentMapper.list(Integer.parseInt(commentDto.getPlanId()));
+			
+			
+		}
+		return null;
 	}
 
 	public boolean modify(CommentDto commentDto) {

@@ -59,12 +59,13 @@ public class WishListController {
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
 	
-	@DeleteMapping
+	@PostMapping("/delete")
 	@ApiOperation(value="찜하기 취소", notes="찜하기 목록에서 플랜아이디, 사용자 아이디 제거", response=Integer.class)
 	public ResponseEntity<Map<String, Object>> removeWishList(@RequestBody @ApiParam(value = "찜하기 목록에서 제거할 플랜 아이디와 사용자 아이디", required = true) WishListDto wishDto){
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = null;
 		try {
+			System.out.println("삭제할 DTO: "+wishDto);
 			if (service.delete(wishDto) == 1) {
 				resultMap.put("message", SUCCESS);
 				status = HttpStatus.ACCEPTED;
