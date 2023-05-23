@@ -18,8 +18,21 @@ public class PlanDto {
 	private String planContent;
 	private String planDate;
 	private List<Map<String, Integer>> plans;
+	private List<AttractionDto> attrInfos;
 	private int likeCnt;
 	
+	
+	
+	
+
+	public List<AttractionDto> getAttrInfos() {
+		return attrInfos;
+	}
+
+	public void setAttrInfos(List<AttractionDto> attrInfos) {
+		this.attrInfos = attrInfos;
+	}
+
 	public List<Map<String, Integer>> getPlans() {
 		return plans;
 	}

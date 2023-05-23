@@ -39,6 +39,7 @@ public class AttractionService {
 		}
 		return attrList;
 	}
+	
 	public String getAttractionDetail(String contentId) throws SQLException {
 		
 		return attractionMapper.getAttractionDescription(contentId); 

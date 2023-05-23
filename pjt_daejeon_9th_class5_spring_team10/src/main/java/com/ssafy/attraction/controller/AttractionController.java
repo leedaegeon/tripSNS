@@ -49,14 +49,6 @@ public class AttractionController {
 		return service.listAttractions(param);
 	}
 	
-	@GetMapping("/specific")
-	@ApiOperation(value="특정 contentId에 해당하는 여행지 리스트 반환",notes="contentId 배열이 들어올 때 해당하는 여행지 리스트를 반환" , response=List.class)
-	public List<AttractionDto> getAttractions(@RequestParam int[] contentIds) throws Exception {
-//		for(int i=0; i<contentIds.length; i++) {
-//			logger.info(Integer.toString(contentIds[i]));
-//		}
-		return service.getAttraction(contentIds);
-	}
 	
 	@GetMapping("/{contentId}")
 	@ApiOperation(value="여행지 설명 얻어오기", notes="선택한 여행지의 설명을 얻어오는 함수", response=String.class)
