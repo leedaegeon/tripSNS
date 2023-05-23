@@ -27,6 +27,8 @@ public interface PlanMapper {
 	List<PlanDto> listCommentedPlanBoard(String userId) throws SQLException;
 	
 	List<PlanDto> listWishPlanBoard(String userId) throws SQLException;
+	
+	List<Integer> likedPlanIdList(String userId) throws SQLException;
 
 //	List<PlanDetailDto> listPlanDetail(Map<String, Object> map) throws SQLException;
 //

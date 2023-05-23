@@ -20,7 +20,7 @@ public class PlanDto {
 	private List<Map<String, Integer>> plans;
 	private List<AttractionDto> attrInfos;
 	private int likeCnt;
-
+	private boolean isWish;
 
 	public List<AttractionDto> getAttrInfos() {
 		return attrInfos;
@@ -29,6 +29,7 @@ public class PlanDto {
 	public void setAttrInfos(List<AttractionDto> attrInfos) {
 		this.attrInfos = attrInfos;
 	}
+
 	public PlanDto() {
 		super();
 	}
@@ -40,7 +41,6 @@ public class PlanDto {
 	public void setPlans(List<Map<String, Integer>> plans) {
 		this.plans = plans;
 	}
-
 
 	public String getPlanDate() {
 		return planDate;
@@ -98,11 +98,19 @@ public class PlanDto {
 		this.likeCnt = likeCnt;
 	}
 
+	public boolean isWish() {
+		return isWish;
+	}
+
+	public void setWish(boolean isWish) {
+		this.isWish = isWish;
+	}
+
 	@Override
 	public String toString() {
 		return "PlanDto [planId=" + planId + ", userId=" + userId + ", userName=" + userName + ", planTitle="
 				+ planTitle + ", planContent=" + planContent + ", planDate=" + planDate + ", plans=" + plans
-				+ ", likeCnt=" + likeCnt + "]";
+				+ ", attrInfos=" + attrInfos + ", likeCnt=" + likeCnt + ", isWish=" + isWish + "]";
 	}
 
 }

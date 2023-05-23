@@ -141,7 +141,11 @@
 	<!-- 상세플랜: 선택된 한 유저의 글, 댓글, 좋아요 수, 상세플랜(plan_tb) -->
 
 
-
+	<select id="likedPlanIdList" parameterType="String">
+		select p_id
+		from plan_like_tb
+		where u_id = #{userId};
+	</select>
 
 
 </mapper> 
