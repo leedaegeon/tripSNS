@@ -4,8 +4,7 @@
 
 	<resultMap type="PlanDto" id="plans">
 		<result column="plan_id" property="planId" />
-		<!-- <result column="u_id" property="userId"/> -->
-		<result column="user_name" property="userName" />
+		<result column="u_id" property="userId"/>
 		<result column="plan_title" property="planTitle" />
 		<result column="plan_content" property="planContent" />
 		<result column="plan_date" property="planDate" />
@@ -22,8 +21,7 @@
 	<!-- 전체 플랜게시 읽어오기 -->
 	<select id="listPlan" resultMap="plans">
 		select plan_id,
-		(select user_name
-		from user_tb where user_id = pb.u_id) as user_name,
+		pb.u_id,
 		plan_title,
 		plan_content,
 		case when date_format(plan_date, '%Y%m%d') =
@@ -31,7 +29,7 @@
 		then date_format(plan_date, '%H:%i:%s')
 		else date_format(plan_date,
 		'%y.%m.%d')
-		end date,
+		end plan_date,
 		ifnull(likeCnt,0) as likeCnt
 		from plan_board_tb pb left outer join (
 		select p_id,
@@ -53,14 +51,14 @@
 
 	<!-- 내 플랜 불러오기 -->
 	<select id="listMyPlanBoard" resultMap="plans">
-		select plan_id, (select
-		user_name from user_tb where user_id = pb.u_id) as user_name,
+		select plan_id,
+		pb.u_id,
 		plan_title, plan_content,
 		case when date_format(plan_date, '%Y%m%d') =
 		date_format(now(), '%Y%m%d')
 		then date_format(plan_date, '%H:%i:%s')
 		else date_format(plan_date, '%y.%m.%d')
-		end date,
+		end plan_date,
 		ifnull(likeCnt,0) as likeCnt
 		from plan_board_tb pb left outer join (
 		select p_id,
@@ -75,12 +73,12 @@
 	<!-- 댓글 단 플랜 불러오기 -->
 	<select id="listCommentedPlanBoard" resultMap="plans">
 		select plan_id, 
-		(select user_name from user_tb where user_id = pb.u_id) as user_name,
+		pb.u_id,
 		 plan_title, plan_content, 
 		 case when date_format(plan_date, '%Y%m%d') = date_format(now(), '%Y%m%d')
 		then date_format(plan_date, '%H:%i:%s')
 		else date_format(plan_date, '%y.%m.%d')
-		end date, 
+		end plan_date, 
 		 ifnull(likeCnt, 0) as likeCnt
 		 from plan_board_tb pb left outer join (
 		select p_id, count(*) as likeCnt
@@ -96,14 +94,13 @@
 	<!-- 찜한 플랜 불러오기 -->
 	<select id="listWishPlanBoard" resultMap="plans">
 		select plan_id,
-		(select
-		user_name from user_tb where user_id = pb.u_id) as user_name,
+		pb.u_id,
 		plan_title, plan_content,
 		case when date_format(plan_date, '%Y%m%d') =
 		date_format(now(), '%Y%m%d')
 		then date_format(plan_date, '%H:%i:%s')
 		else date_format(plan_date, '%y.%m.%d')
-		end date,
+		end plan_date,
 		ifnull(likeCnt, 0) as likeCnt
 		from plan_board_tb pb left outer join (
 		select p_id,

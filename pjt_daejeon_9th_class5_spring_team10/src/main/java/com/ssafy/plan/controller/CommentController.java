@@ -45,12 +45,14 @@ public class CommentController {
 
 	@ApiOperation(value = "댓글 작성", response = String.class)
 	@PostMapping
-	public ResponseEntity<String> createComment(@RequestBody CommentDto commentDto) {
+	public ResponseEntity<List<CommentDto>> createComment(@RequestBody CommentDto commentDto) {
 		logger.debug("createComment - 호출");
-		if(commentService.create(commentDto)) {
-			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+		List<CommentDto> updatedCommentList = commentService.create(commentDto);
+		if(updatedCommentList != null) {
+			
+			return new ResponseEntity<>(updatedCommentList, HttpStatus.OK);
 		}
-		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
+		return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
 	}
 
 	@ApiOperation(value = "댓글 수정", response = String.class)
