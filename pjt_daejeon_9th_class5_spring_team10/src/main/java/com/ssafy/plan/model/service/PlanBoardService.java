@@ -116,7 +116,27 @@ public class PlanBoardService {
 		
 	}
 	
-	
+	public List<PlanDto> getPlanDetailListWithUserId(List<PlanDto> data, String userId) throws SQLException {
+		List<Integer> likedPList = planMapper.likedPlanIdList(userId);
+		for (int i = 0; i < data.size(); i++) {
+			List<Map<String, Integer>> plans = data.get(i).getPlans();
+			List<AttractionDto> attrList = new ArrayList<AttractionDto>();
+			for (int j = 0; j < plans.size(); j++) {
+				attrList.add(attractionMapper.getAttraction(plans.get(j).get("ATTR_ID")));
+			}
+			data.get(i).setAttrInfos(attrList);
+			
+			// 찜하기 목록에 있는 플랜인지
+			if (likedPList.contains(data.get(i).getPlanId())) {
+				data.get(i).setWish(true);
+			}
+		}
+		
+		return data;
+
+	}
+
+
 	public int writePlanBoard(Map<String, Object> map) throws SQLException {
 		int isSuccess = planMapper.writePlanBoard(map);
 		return isSuccess;
