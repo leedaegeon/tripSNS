@@ -4,17 +4,26 @@
 	<resultMap type="CommentDto" id="comment">
 		<result column="comment_no" property="commentNo" />
 		<result column="p_id" property="planId" />
-		<result column="u_id" property="userId"/>
+		<result column="u_id" property="userId" />
 		<result column="comment_content" property="commentContent" />
 		<result column="comment_date" property="commentDate" />
 	</resultMap>
-	
+
 	<!-- planId에 해당하는 댓글 조회 -->
 	<select id="list" resultMap="comment">
-		select comment_no, u_id, p_id, comment_content, comment_date
+		select comment_no, u_id, p_id,
+		comment_content, comment_date
 		from plan_comment_tb
-		where p_id = #{planId}
+		where p_id =
+		#{planId}
 		order by comment_date desc
+	</select>
+
+	<!-- 	댓글 달린 플랜 아이디 얻어오기 -->
+	<select id="getPlanId" parameterType="int" resultType="int">
+		select p_id
+		from plan_comment_tb
+		where comment_no = #{commentNo}
 	</select>
 
 	<!-- 댓글 등록 -->
@@ -22,14 +31,16 @@
 		insert into plan_comment_tb(
 		u_id, p_id, comment_content, comment_date
 		) values (
-		#{userId}, #{planId}, #{commentContent}, now()
+		#{userId},
+		#{planId}, #{commentContent}, now()
 		)
 	</insert>
 
 	<!-- 댓글 수정 -->
 	<update id="modify" parameterType="commentDto">
 		update plan_comment_tb
-		set comment_content = #{commentContent}
+		set
+		comment_content = #{commentContent}
 		where comment_no = #{commentNo}
 	</update>
 

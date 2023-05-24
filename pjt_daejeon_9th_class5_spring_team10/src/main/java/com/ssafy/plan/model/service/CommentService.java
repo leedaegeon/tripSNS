@@ -27,20 +27,24 @@ public class CommentService {
 	}
 
 	public List<CommentDto> create(CommentDto commentDto) {
-		if(commentMapper.create(commentDto) == 1) {
+		if (commentMapper.create(commentDto) == 1) {
 			return commentMapper.list(Integer.parseInt(commentDto.getPlanId()));
-			
-			
 		}
 		return null;
 	}
 
-	public boolean modify(CommentDto commentDto) {
-		return commentMapper.modify(commentDto) == 1;
+	public List<CommentDto> modify(CommentDto commentDto) {
+		if (commentMapper.modify(commentDto) == 1) {
+			return commentMapper.list(Integer.parseInt(commentDto.getPlanId()));
+		}
+		return null;
 	}
 
-	public boolean delete(int commentNo) {
-		return commentMapper.delete(commentNo) == 1;
+	public List<CommentDto> delete(int commentNo) {
+		int planId = commentMapper.getPlanId(commentNo);
+		if (commentMapper.delete(commentNo) == 1) {
+			return commentMapper.list(planId);
+		}
+		return null;
 	}
-
 }

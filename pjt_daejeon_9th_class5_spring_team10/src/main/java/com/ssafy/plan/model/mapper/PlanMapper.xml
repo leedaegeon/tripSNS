@@ -7,7 +7,7 @@
 		<result column="u_id" property="userId"/>
 		<result column="plan_title" property="planTitle" />
 		<result column="plan_content" property="planContent" />
-		<result column="plan_date" property="planDate" />
+		<result column="date" property="planDate" />
 		<result column="likeCnt" property="likeCnt" />
 
 	</resultMap>
@@ -29,7 +29,7 @@
 		then date_format(plan_date, '%H:%i:%s')
 		else date_format(plan_date,
 		'%y.%m.%d')
-		end plan_date,
+		end date,
 		ifnull(likeCnt,0) as likeCnt
 		from plan_board_tb pb left outer join (
 		select p_id,
@@ -58,7 +58,7 @@
 		date_format(now(), '%Y%m%d')
 		then date_format(plan_date, '%H:%i:%s')
 		else date_format(plan_date, '%y.%m.%d')
-		end plan_date,
+		end date,
 		ifnull(likeCnt,0) as likeCnt
 		from plan_board_tb pb left outer join (
 		select p_id,
@@ -78,7 +78,7 @@
 		 case when date_format(plan_date, '%Y%m%d') = date_format(now(), '%Y%m%d')
 		then date_format(plan_date, '%H:%i:%s')
 		else date_format(plan_date, '%y.%m.%d')
-		end plan_date, 
+		end date, 
 		 ifnull(likeCnt, 0) as likeCnt
 		 from plan_board_tb pb left outer join (
 		select p_id, count(*) as likeCnt
@@ -100,7 +100,7 @@
 		date_format(now(), '%Y%m%d')
 		then date_format(plan_date, '%H:%i:%s')
 		else date_format(plan_date, '%y.%m.%d')
-		end plan_date,
+		end date,
 		ifnull(likeCnt, 0) as likeCnt
 		from plan_board_tb pb left outer join (
 		select p_id,

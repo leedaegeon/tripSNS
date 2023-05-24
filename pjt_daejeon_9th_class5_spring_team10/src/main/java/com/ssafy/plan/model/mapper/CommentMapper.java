@@ -14,4 +14,5 @@ public interface CommentMapper {
 
 	int delete(int commentNo);
 
+	int getPlanId(int commentNo);
 }
