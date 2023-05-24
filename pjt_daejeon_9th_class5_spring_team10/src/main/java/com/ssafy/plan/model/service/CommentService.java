@@ -34,8 +34,9 @@ public class CommentService {
 	}
 
 	public List<CommentDto> modify(CommentDto commentDto) {
+		int planId = commentMapper.getPlanId(commentDto.getCommentNo());
 		if (commentMapper.modify(commentDto) == 1) {
-			return commentMapper.list(Integer.parseInt(commentDto.getPlanId()));
+			return commentMapper.list(planId);
 		}
 		return null;
 	}
