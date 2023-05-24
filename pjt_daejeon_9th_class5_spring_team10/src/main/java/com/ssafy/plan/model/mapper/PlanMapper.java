@@ -32,9 +32,11 @@ public interface PlanMapper {
 
 //	List<PlanDetailDto> listPlanDetail(Map<String, Object> map) throws SQLException;
 //
-//	PlanDto getPlan(String planId) throws SQLException;
-//
-//	void updatePlan(PlanDto planDto) throws SQLException;
-//
-//	void deletePlan(PlanDto planId) throws SQLException;
+	PlanDto getPlan(int planId) throws SQLException;
+
+	int updatePlan(PlanDto planDto) throws SQLException;
+	
+	int deletePlanDetail(int planId) throws SQLException;
+
+	int deletePlan(int planId) throws SQLException;
 }

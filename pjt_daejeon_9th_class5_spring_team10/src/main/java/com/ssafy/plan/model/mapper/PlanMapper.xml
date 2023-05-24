@@ -42,6 +42,30 @@
 		order
 		by plan_date desc
 	</select>
+	
+<!-- 	플랜 하나 읽어오기 -->
+	<select id="getPlan" resultMap="plans" parameterType="int">
+		select plan_id,
+		pb.u_id,
+		plan_title,
+		plan_content,
+		case when date_format(plan_date, '%Y%m%d') =
+		date_format(now(), '%Y%m%d')
+		then date_format(plan_date, '%H:%i:%s')
+		else date_format(plan_date,
+		'%y.%m.%d')
+		end date,
+		ifnull(likeCnt,0) as
+		likeCnt
+		from plan_board_tb pb left outer join (
+		select p_id,
+		count(*) as
+		likeCnt
+		from plan_like_tb
+		group by p_id) pl
+		on pb.plan_id = pl.p_id
+		where pb.plan_id=#{planId}
+	</select>
 
 	<!-- 플랜 게시글(plan_id)에 해당하는 여행지 리스트 불러오기 -->
 	<select id="listAttraction" resultType="Map">
@@ -167,19 +191,19 @@
 	</select>
 
 
-	<!-- 플랜 삭제 -->
-	<!-- <delete id="" parameterType="int">
-		DELETE FROM plan_board_tb
-		WHERE
-		plan_id = #{planId};
-	</delete>
 
-	플랜 수정 (플랜 제목, 내용 수정 // 플랜에 등록한 여행지 수정(삭제하고 재등록)
-	<update id="">
+	<!-- 플랜 수정 (플랜 제목, 내용 수정 // 플랜에 등록한 여행지 수정(삭제하고 재등록) -->
+	<update id="updatePlan" parameterType="planDto">
 		UPDATE plan_board_tb
 		SET plan_title = #{planTitle},
 		plan_content = #{planContent}
 		WHERE plan_id = #{planId}
-	</update> -->
+	</update>
+	
+	<!-- 플랜 삭제 -->
+	<delete id="deletePlanDetail" parameterType="int">
+		DELETE FROM plan_detail_tb
+		WHERE p_id = #{planId};
+	</delete>
 
 </mapper> 

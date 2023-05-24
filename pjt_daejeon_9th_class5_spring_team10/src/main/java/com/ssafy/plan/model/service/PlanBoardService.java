@@ -25,7 +25,7 @@ public class PlanBoardService {
 	private PlanMapper planMapper;
 	private AttractionMapper attractionMapper;
 	private CommentMapper commentMapper;
-	
+
 	public PlanBoardService(PlanMapper planMapper, AttractionMapper attractionMapper, CommentMapper commentMapper) {
 		super();
 		this.planMapper = planMapper;
@@ -43,6 +43,16 @@ public class PlanBoardService {
 		}
 
 		return planBoardList;
+	}
+
+	public PlanDto getPlan(int planId) throws SQLException {
+		PlanDto planDto;
+
+		planDto = planMapper.getPlan(planId);
+		List<Map<String, Integer>> tempList = getListAttraction(planDto.getPlanId());
+		planDto.setPlans(tempList);
+
+		return planDto;
 	}
 
 	public List<Map<String, Integer>> getListAttraction(int planId) throws SQLException {
@@ -87,23 +97,22 @@ public class PlanBoardService {
 		return planBoardList;
 	}
 
-	public List<PlanDto> getPlanDetailList(List<PlanDto>data) throws SQLException{
-		for(int i=0; i<data.size(); i++) {
+	public List<PlanDto> getPlanDetailList(List<PlanDto> data) throws SQLException {
+		for (int i = 0; i < data.size(); i++) {
 			List<Map<String, Integer>> plans = data.get(i).getPlans();
 			List<AttractionDto> attrList = new ArrayList<AttractionDto>();
-			for(int j=0; j<plans.size(); j++) {
+			for (int j = 0; j < plans.size(); j++) {
 				attrList.add(attractionMapper.getAttraction(plans.get(j).get("ATTR_ID")));
 			}
 			data.get(i).setAttrInfos(attrList);
-			
+
 			data.get(i).setComments(commentMapper.list(data.get(i).getPlanId()));
 		}
-		
-		
+
 		return data;
-		
+
 	}
-	
+
 	public List<PlanDto> getPlanDetailListWithUserId(List<PlanDto> data, String userId) throws SQLException {
 		List<Integer> likedPList = planMapper.likedPlanIdList(userId);
 		for (int i = 0; i < data.size(); i++) {
@@ -120,11 +129,20 @@ public class PlanBoardService {
 				data.get(i).setWish(true);
 			}
 		}
-		
-		return data;
 
+		return data;
 	}
 
+	// 플랜 수정할 때 플랜 하나의 상세 정보 가져오기 위함
+	public PlanDto getPlanDetail(PlanDto data) throws SQLException {
+		List<Map<String, Integer>> plans = data.getPlans();
+		List<AttractionDto> attrList = new ArrayList<AttractionDto>();
+		for (int i = 0; i < plans.size(); i++) {
+			attrList.add(attractionMapper.getAttraction(plans.get(i).get("ATTR_ID")));
+		}
+		data.setAttrInfos(attrList);
+		return data;
+	}
 
 	public int writePlanBoard(Map<String, Object> map) throws SQLException {
 		int isSuccess = planMapper.writePlanBoard(map);
@@ -157,4 +175,31 @@ public class PlanBoardService {
 		}
 		return isSuccess;
 	}
+
+	public int deletePlan(int planId) throws SQLException {
+		int isSuccess = planMapper.deletePlan(planId);
+		return isSuccess;
+	}
+
+	public int deletePlanDetail(int planId) throws SQLException {
+		int isSuccess = planMapper.deletePlanDetail(planId);
+		return isSuccess;
+	}
+
+	public int updatePlan(PlanDto planDto) throws SQLException {
+		int isSuccess = planMapper.updatePlan(planDto);
+		isSuccess *= planMapper.deletePlanDetail(planDto.getPlanId());
+
+		Map<String, String> newMap = new HashMap<String, String>();
+		int order = 1;
+		newMap.put("plan_id", Integer.toString(planDto.getPlanId()));
+		for (Map<String, Integer> item : planDto.getPlans()) {
+			newMap.put("contentId", Integer.toString(item.get("contentId")));
+			newMap.put("pOrder", Integer.toString(order));
+			order++;
+			isSuccess *= planMapper.writePlans(newMap);
+		}
+		return isSuccess;
+	}
+
 }
