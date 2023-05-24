@@ -34,7 +34,6 @@ public class PlanBoardController {
 	private static final String FAIL = "fail";
 
 	private PlanBoardService service;
-	
 
 	public PlanBoardController(PlanBoardService service, CommentService commentService) {
 		super();
@@ -52,24 +51,25 @@ public class PlanBoardController {
 	@ApiOperation(value = "내가 쓴 플랜게시판의 글 목록", notes = "플랜게시판에 작성한 내 글 목록을 반환한다", response = List.class)
 	public List<PlanDto> getMyPlanBoardList(@RequestParam String userId) throws SQLException {
 		logger.info("getMyPlanBoardList - 호출");
-//		System.out.println(userId);
-		return service.getMyPlan(userId);
+		List<PlanDto> data = service.getMyPlan(userId);
+		return service.getPlanDetailListWithUserId(data, userId);
 	}
 
 	@GetMapping("/wish")
 	@ApiOperation(value = "내가 쓴 플랜게시판의 글 목록", notes = "플랜게시판에 작성한 내 글 목록을 반환한다", response = List.class)
 	public List<PlanDto> getWishPlanBoardList(@RequestParam String userId) throws SQLException {
 		logger.info("getWishPlanBoardList - 호출");
-//		System.out.println(userId);
-		return service.getWishPlan(userId);
+		List<PlanDto> data = service.getWishPlan(userId);
+		return service.getPlanDetailListWithUserId(data, userId);
 	}
 
 	@GetMapping("/commented")
 	@ApiOperation(value = "내가 쓴 플랜게시판의 글 목록", notes = "플랜게시판에 작성한 내 글 목록을 반환한다", response = List.class)
 	public List<PlanDto> getCommentedPlanBoardList(@RequestParam String userId) throws SQLException {
 		logger.info("getCommentedPlanBoardList - 호출");
-//		System.out.println(userId);
-		return service.getCommentedPlan(userId);
+
+		List<PlanDto> data = service.getCommentedPlan(userId);
+		return service.getPlanDetailListWithUserId(data, userId);
 	}
 
 	@GetMapping("/detail")
@@ -77,7 +77,7 @@ public class PlanBoardController {
 	public List<PlanDto> getPlanDetailList() throws SQLException {
 		logger.info("getPlanDetailList");
 		List<PlanDto> data = service.getPlanBoardList();
-		
+
 		return service.getPlanDetailList(data);
 	}
 

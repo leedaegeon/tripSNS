@@ -49,7 +49,6 @@ public class CommentController {
 		logger.debug("createComment - 호출");
 		List<CommentDto> updatedCommentList = commentService.create(commentDto);
 		if(updatedCommentList != null) {
-			
 			return new ResponseEntity<>(updatedCommentList, HttpStatus.OK);
 		}
 		return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
@@ -57,23 +56,25 @@ public class CommentController {
 
 	@ApiOperation(value = "댓글 수정", response = String.class)
 	@PutMapping
-	public ResponseEntity<String> modifyComment(@RequestBody CommentDto commentDto) {
+	public ResponseEntity<List<CommentDto>> modifyComment(@RequestBody CommentDto commentDto) {
 		logger.debug("modifyComment - 호출");
 		logger.debug("" + commentDto);
-		if(commentService.modify(commentDto)) {
-			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+		List<CommentDto> updatedCommentList = commentService.modify(commentDto);
+		if(updatedCommentList != null) {
+			return new ResponseEntity<>(updatedCommentList, HttpStatus.OK);
 		}
-		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
+		return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
 	}
 
 	@ApiOperation(value = "댓글 삭제", response = String.class)
 	@DeleteMapping("/{commentNo}")
-	public ResponseEntity<String> deleteBook(@PathVariable("commentNo") int commentNo) {
-		logger.debug("deleteBook - 호출");
-		if(commentService.delete(commentNo)) {
-			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+	public ResponseEntity<List<CommentDto>> deleteComment(@PathVariable("commentNo") int commentNo) {
+		logger.debug("deleteComment - 호출");
+		List<CommentDto> updatedCommentList = commentService.delete(commentNo);
+		if(updatedCommentList != null) {
+			return new ResponseEntity<>(updatedCommentList, HttpStatus.OK);
 		}
-		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
+		return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
 	}
 	
 }
