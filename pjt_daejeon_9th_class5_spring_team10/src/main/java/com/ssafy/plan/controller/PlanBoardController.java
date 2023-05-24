@@ -1,6 +1,7 @@
 package com.ssafy.plan.controller;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,14 +9,20 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ssafy.plan.model.CommentDto;
 import com.ssafy.plan.model.PlanDto;
 import com.ssafy.plan.model.service.CommentService;
 import com.ssafy.plan.model.service.PlanBoardService;
@@ -81,6 +88,15 @@ public class PlanBoardController {
 		return service.getPlanDetailList(data);
 	}
 
+	@GetMapping("/detail/{planId}")
+	@ApiOperation(value = "플랜  상세 정보", notes = "플랜 글 및 여행지 목록을 반환한다", response = PlanDto.class)
+	public PlanDto getPlan(@PathVariable("planId") int planId) throws SQLException {
+		logger.info("getPlan");
+		PlanDto data = service.getPlan(planId);
+
+		return service.getPlanDetail(data);
+	}
+
 	/////////////////////////////////////////
 	@GetMapping("/detail-with-userid")
 	@ApiOperation(value = "모든 사람이 작성한 플랜 게시판의 글 목록 및 여행지 + 찜하기 목록에 있는지", notes = "모든 사람이 작성한 플랜 게시판의 글 목록 및 여행지", response = List.class)
@@ -102,21 +118,68 @@ public class PlanBoardController {
 		logger.info(map.toString());
 		int isSuccess = service.writePlanBoard(map);
 		logger.info("plan_id있어야함: " + map.toString());
-		Map<String, Object> newMap = new HashMap<String, Object>();
+//		Map<String, Object> newMap = new HashMap<String, Object>();
 
 		String userId = (String) map.get("userId");
 
 		service.indexPlanBoardUser(userId);
 
-		List<Map<String, Integer>> attrList = (List<Map<String, Integer>>) map.get("plans");
-
-		newMap.put("plan_id", (String) map.get("plan_id"));
-		newMap.put("plans", attrList);
-		isSuccess = service.writePlans(newMap);
+//		List<Map<String, Integer>> attrList = (List<Map<String, Integer>>) map.get("plans");
+//
+//		newMap.put("plan_id", (String) map.get("plan_id"));
+//		newMap.put("plans", attrList);
+//		isSuccess = service.writePlans(newMap);
+		isSuccess = service.writePlans(map);
 
 		return isSuccess;
 	}
 
+	@ApiOperation(value = "플랜 삭제", response = Integer.class)
+	@DeleteMapping("/{planId}")
+	public ResponseEntity<Map<String, Object>> removePlan(@PathVariable("planId") int planId) {
+		logger.debug("removePlan - 호출");
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = null;
+
+		try {
+			if (service.deletePlan(planId) == 1) {
+				resultMap.put("message", SUCCESS);
+				status = HttpStatus.ACCEPTED;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			logger.error("플랜 삭제 실패 : {}", e);
+			resultMap.put("message", e.getMessage());
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+		}
+		return new ResponseEntity<Map<String, Object>>(resultMap, status);
+	}
+
+	@ApiOperation(value = "플랜 수정", response = Integer.class)
+	@PutMapping
+	public ResponseEntity<Map<String, Object>> modifyPlan(@RequestBody PlanDto planDto) {
+		logger.debug("modifyPlan - 호출");
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = null;
+
+		try {
+			System.out.println("수정할 planDTO: " + planDto);
+			System.out.println(planDto.getAttrInfos());
+			int isSuccess = service.updatePlan(planDto);
+			if (isSuccess != 0) {
+				resultMap.put("message", SUCCESS);
+				status = HttpStatus.ACCEPTED;
+			} 
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			logger.error("플랜 삭제 실패 : {}", e);
+			resultMap.put("message", e.getMessage());
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+		}
+		return new ResponseEntity<Map<String, Object>>(resultMap, status);
+	}
 }
 
 //{"userId":"ssafy",
