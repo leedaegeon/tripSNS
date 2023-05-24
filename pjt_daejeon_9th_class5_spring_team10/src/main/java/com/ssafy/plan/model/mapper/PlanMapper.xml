@@ -168,18 +168,18 @@
 
 
 	<!-- 플랜 삭제 -->
-	<delete id="" parameterType="int">
+	<!-- <delete id="" parameterType="int">
 		DELETE FROM plan_board_tb
 		WHERE
 		plan_id = #{planId};
 	</delete>
 
-	<!-- 플랜 수정 (플랜 제목, 내용 수정 // 플랜에 등록한 여행지 수정(삭제하고 재등록) -->
+	플랜 수정 (플랜 제목, 내용 수정 // 플랜에 등록한 여행지 수정(삭제하고 재등록)
 	<update id="">
 		UPDATE plan_board_tb
 		SET plan_title = #{planTitle},
 		plan_content = #{planContent}
 		WHERE plan_id = #{planId}
-	</update>
+	</update> -->
 
 </mapper> 
