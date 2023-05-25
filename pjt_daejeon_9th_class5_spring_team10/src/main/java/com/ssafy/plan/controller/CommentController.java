@@ -47,6 +47,7 @@ public class CommentController {
 	@PostMapping
 	public ResponseEntity<List<CommentDto>> createComment(@RequestBody CommentDto commentDto) {
 		logger.debug("createComment - 호출");
+		logger.debug(commentDto.toString());
 		List<CommentDto> updatedCommentList = commentService.create(commentDto);
 		if(updatedCommentList != null) {
 			return new ResponseEntity<>(updatedCommentList, HttpStatus.OK);

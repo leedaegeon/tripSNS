@@ -19,7 +19,7 @@
 	</resultMap>
 
 	<!-- 전체 플랜게시 읽어오기 -->
-	<select id="listPlan" resultMap="plans">
+	<select id="listPlan" resultMap="plans" >
 		select plan_id,
 		pb.u_id,
 		plan_title,
@@ -39,8 +39,7 @@
 		from plan_like_tb
 		group by p_id) pl
 		on pb.plan_id = pl.p_id
-		order
-		by plan_date desc
+		order by plan_date desc
 	</select>
 	
 <!-- 	플랜 하나 읽어오기 -->
@@ -190,6 +189,11 @@
 		where u_id = #{userId};
 	</select>
 
+	<!-- 플랜 삭제 -->
+	<delete id="deletePlan" parameterType="int">
+		DELETE FROM plan_board_tb
+		WHERE plan_id = #{planId};
+	</delete>
 
 
 	<!-- 플랜 수정 (플랜 제목, 내용 수정 // 플랜에 등록한 여행지 수정(삭제하고 재등록) -->

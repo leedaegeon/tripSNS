@@ -82,6 +82,7 @@ public class PlanBoardController {
 	@GetMapping("/detail")
 	@ApiOperation(value = "모든 사람이 작성한 플랜 게시판의 글 목록 및 여행지", notes = "모든 사람이 작성한 플랜 게시판의 글 목록 및 여행지", response = List.class)
 	public List<PlanDto> getPlanDetailList() throws SQLException {
+		
 		logger.info("getPlanDetailList");
 		List<PlanDto> data = service.getPlanBoardList();
 
@@ -116,6 +117,8 @@ public class PlanBoardController {
 	public int writePlanBoard(@RequestBody Map<String, Object> map) throws SQLException {
 		logger.info("writePlanBoard - 호출");
 		logger.info(map.toString());
+		
+		
 		int isSuccess = service.writePlanBoard(map);
 		logger.info("plan_id있어야함: " + map.toString());
 //		Map<String, Object> newMap = new HashMap<String, Object>();
@@ -138,6 +141,8 @@ public class PlanBoardController {
 	@DeleteMapping("/{planId}")
 	public ResponseEntity<Map<String, Object>> removePlan(@PathVariable("planId") int planId) {
 		logger.debug("removePlan - 호출");
+		logger.debug(Integer.toString(planId));
+		
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = null;
 

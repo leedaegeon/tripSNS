@@ -35,8 +35,10 @@ public class PlanBoardService {
 
 	public List<PlanDto> getPlanBoardList() throws SQLException {
 		List<PlanDto> planBoardList;
-
+		Map<String, Integer> paging=new HashMap<String, Integer>();
+		
 		planBoardList = planMapper.listPlan();
+		
 		for (int i = 0; i < planBoardList.size(); i++) {
 			List<Map<String, Integer>> tempList = getListAttraction(planBoardList.get(i).getPlanId());
 			planBoardList.get(i).setPlans(tempList);
