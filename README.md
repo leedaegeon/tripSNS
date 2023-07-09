@@ -7,7 +7,6 @@
 - 개발언어 / 개발 환경 : Java / STS / Tomcat / MySQL
 - 필수 라이브러리 / 오픈소스 : Spring Framework(Spring Boot) / myBatis Framework
 - 테스트 도구 : postman
-  > > > > > > > 6aa4f4c315e6d0d72e51d6467c165dc1afeaaf5e
 
 ## 목차
 
