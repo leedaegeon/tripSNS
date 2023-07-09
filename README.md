@@ -7,6 +7,10 @@
 - 개발언어 / 개발 환경 : Java / STS / Tomcat / MySQL
 - 필수 라이브러리 / 오픈소스 : Spring Framework(Spring Boot) / myBatis Framework
 - 테스트 도구 : postman
+- Spring boot version: 2.7.11
+- JAVA version: 8
+- mybatis-spring boot version: 2.3
+- vue.js version: 2.6.14
 
 ## 목차
 
