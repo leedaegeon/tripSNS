@@ -3,10 +3,10 @@
 ## 프로젝트 소개
 
 - 관광지 명소를 검색하고, 여행 플랜을 세우고 공유할 수 있는 웹 서비스
-- 개발 기간 : 1일
-- 개발언어 / 개발 환경 : Java / STS / Tomcat / MySQL
-- 필수 라이브러리 / 오픈소스 : Spring Framework(Spring Boot) / myBatis Framework
-- 테스트 도구 : Swagger
+- 개발 기간 : 7일
+- 개발언어 / 개발 환경 : Java / sts / Tomcat / MySQL workbench / VScode
+- 필수 라이브러리 / 오픈소스 : Spring Framework(Spring Boot) / myBatis Framework/ Vue.js
+- 테스트 도구 : postman / Swagger
 - Spring boot version: 2.7.11
 - JAVA version: 8
 - mybatis-spring boot version: 2.3
