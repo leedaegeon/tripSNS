@@ -1,12 +1,20 @@
 # Enjoy Trip Spring Project (이대건, 이서연)
 
 ## 프로젝트 소개
+<<<<<<< HEAD
 
 - 관광지 명소를 검색하고, 여행 플랜을 세우고 공유할 수 있는 웹 서비스
 - 개발 기간 : 1일
 - 개발언어 / 프로그램 : Java / STS / Tomcat / MySQL
 - 필수 라이브러리 / 오픈소스 : Spring Framework(Spring Boot) / myBatis Framework
 - 테스트 도구 : postman
+=======
+ - 관광지 명소를 검색하고, 여행 플랜을 세우고 공유할 수 있는 웹 서비스
+ - 개발 기간 : 1일
+ - 개발언어 / 개발 환경 : Java / STS / Tomcat / MySQL
+ - 필수 라이브러리 / 오픈소스 : Spring Framework(Spring Boot) / myBatis Framework
+ - 테스트 도구 : postman
+>>>>>>> 6aa4f4c315e6d0d72e51d6467c165dc1afeaaf5e
 
 ## 목차
 
